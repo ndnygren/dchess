@@ -17,7 +17,7 @@
 #include "King.cpp"
 
 
-class BlackKing : public Pawn
+class BlackKing : public King
 {
 	public:
 	BlackKing(int xin, int yin, ChessBoard boardin)

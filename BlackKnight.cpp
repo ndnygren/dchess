@@ -14,21 +14,21 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#include "King.cpp"
+#include "Knight.cpp"
 
 
-class WhiteKing : public King
+class BlackKnight : public Knight
 {
 	public:
-	WhiteKing(int xin, int yin, ChessBoard boardin)
+	BlackKnight(int xin, int yin, ChessBoard boardin)
 	{
-		isWhite = true;
+		isWhite = false;
 		x = xin;
 		y = yin;
 		board = boardin;
 
-		direction = 1;
-		homerank = 2;
-		typecode = ChessBoard::WHITEKING;
+		direction = -1;
+		homerank = 7;
+		typecode = ChessBoard::BLACKKNIGHT;
 	}
 };

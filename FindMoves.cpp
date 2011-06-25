@@ -19,6 +19,8 @@
 #include "BlackPawn.cpp"
 #include "WhiteKing.cpp"
 #include "BlackKing.cpp"
+#include "WhiteKnight.cpp"
+#include "BlackKnight.cpp"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -37,7 +39,7 @@ string toAlg(string input)
 	else if (input.at(0) == '7') { temp = "G"; }
 	else if (input.at(0) == '8') { temp = "H"; }
 	else { temp = "0"; }
-	temp = temp + input.substr(1,2);
+	temp = temp + input.substr(1,1);
 	return temp;
 }
 
@@ -88,6 +90,19 @@ int main(int argc, char** argv)
 					}
 
 				}
+				else if (board.get(i,j) == board.WHITEKNIGHT)
+				{
+					piece = new WhiteKnight(i, j, board);
+					list = piece->generatePreList();
+					for (k = 0; k < (int)list.size(); k++)
+					{
+						cout << "Knight,";
+						cout << toAlg(list[k].substr(68,70)) << ",";
+						cout << toAlg(list[k].substr(70,72)) << ",";
+						cout << list[k] << "\n";
+					}
+
+				}
 			}
 			else
 			{
@@ -111,6 +126,19 @@ int main(int argc, char** argv)
 					for (k = 0; k < (int)list.size(); k++)
 					{
 						cout << "King,";
+						cout << toAlg(list[k].substr(68,70)) << ",";
+						cout << toAlg(list[k].substr(70,72)) << ",";
+						cout << list[k] << "\n";
+					}
+
+				}
+				else if (board.get(i,j) == board.BLACKKNIGHT)
+				{
+					piece = new BlackKnight(i, j, board);
+					list = piece->generatePreList();
+					for (k = 0; k < (int)list.size(); k++)
+					{
+						cout << "Knight,";
 						cout << toAlg(list[k].substr(68,70)) << ",";
 						cout << toAlg(list[k].substr(70,72)) << ",";
 						cout << list[k] << "\n";
