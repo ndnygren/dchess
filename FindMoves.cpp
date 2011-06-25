@@ -301,21 +301,3 @@ bool kingKillable(const string& input)
 	return false;
 }
 
-int main(int argc, char** argv)
-{
-	int i;
-
-	vector<string> list;
-
-	if (argc > 1)
-		{ list = genList(argv[1]); }
-	else
-		{ list = genList("AA1121314151617181122232425262728217273747576777871828384858687888000000"); }
-
-	for (i = 0; i < (int)list.size(); i++)
-	{
-		if (kingKillable(list[i]) == false) { cout << list[i] << "\n"; }
-	}
-
-	return 0;
-}
