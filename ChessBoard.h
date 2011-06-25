@@ -52,6 +52,7 @@ class ChessBoard
 	void set(int loc, int type);
 
 	void setLastMove(int fx, int fy, int tx, int ty);
+	const int* getLastMove() const { return enpassant; }
 
 	void changeTurn();
 

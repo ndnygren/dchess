@@ -20,6 +20,8 @@
 #include "Piece.cpp"
 #include <vector>
 
+#include <iostream>
+using namespace std;
 
 class Pawn : public Piece
 {
@@ -31,6 +33,8 @@ class Pawn : public Piece
 	{
 		std::vector<std::string> output;
 		ChessBoard temp;
+		const int* lastmove;
+		int lastmoved;
 
 		if ((y + direction <= 8) && (y + direction >= 1) && (board.get(x, y + direction) == -1))
 		{
@@ -92,6 +96,30 @@ class Pawn : public Piece
 				output.push_back(temp.toString());
 			}
 		}
+
+		lastmove = board.getLastMove();
+		lastmoved = board.get(lastmove[1] >> 4, lastmove[1] & 0x0F);
+//		cout << "lastmove:" << lastmove[0] << "," << lastmove[1] << "\n";
+		if (board.iptob(x+1,y) == lastmove[1] || board.iptob(x-1,y) == lastmove[1]) 
+		{
+			if (lastmove[0] - lastmove[1] == 2*direction)
+			{
+				if ((direction == -1 && lastmoved == ChessBoard::WHITEPAWN)
+					|| (direction == 1 && lastmoved == ChessBoard::BLACKPAWN))
+				{
+					temp = ChessBoard(board);
+					temp.set(x,y,-1);
+					temp.set(lastmove[1] >> 4, lastmove[1] & 0x0F,-1);
+					temp.set(lastmove[1] >> 4, y + direction, typecode);
+					temp.setLastMove(x,y,lastmove[1] >> 4, y + direction);
+					temp.changeTurn();
+					output.push_back(temp.toString());
+					
+				}
+			}
+			
+		}
+
 		return output;
 	}
 
