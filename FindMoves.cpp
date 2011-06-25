@@ -21,6 +21,12 @@
 #include "BlackKing.cpp"
 #include "WhiteKnight.cpp"
 #include "BlackKnight.cpp"
+#include "WhiteRook.cpp"
+#include "BlackRook.cpp"
+#include "WhiteBishop.cpp"
+#include "BlackBishop.cpp"
+#include "WhiteQueen.cpp"
+#include "BlackQueen.cpp"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -103,6 +109,45 @@ int main(int argc, char** argv)
 					}
 
 				}
+				else if (board.get(i,j) == board.WHITEROOK)
+				{
+					piece = new WhiteRook(i, j, board);
+					list = piece->generatePreList();
+					for (k = 0; k < (int)list.size(); k++)
+					{
+						cout << "Rook,";
+						cout << toAlg(list[k].substr(68,70)) << ",";
+						cout << toAlg(list[k].substr(70,72)) << ",";
+						cout << list[k] << "\n";
+					}
+
+				}
+				else if (board.get(i,j) == board.WHITEBISHOP)
+				{
+					piece = new WhiteBishop(i, j, board);
+					list = piece->generatePreList();
+					for (k = 0; k < (int)list.size(); k++)
+					{
+						cout << "Bishop,";
+						cout << toAlg(list[k].substr(68,70)) << ",";
+						cout << toAlg(list[k].substr(70,72)) << ",";
+						cout << list[k] << "\n";
+					}
+
+				}
+				else if (board.get(i,j) == board.WHITEQUEEN)
+				{
+					piece = new WhiteQueen(i, j, board);
+					list = piece->generatePreList();
+					for (k = 0; k < (int)list.size(); k++)
+					{
+						cout << "Queen,";
+						cout << toAlg(list[k].substr(68,70)) << ",";
+						cout << toAlg(list[k].substr(70,72)) << ",";
+						cout << list[k] << "\n";
+					}
+
+				}
 			}
 			else
 			{
@@ -139,6 +184,45 @@ int main(int argc, char** argv)
 					for (k = 0; k < (int)list.size(); k++)
 					{
 						cout << "Knight,";
+						cout << toAlg(list[k].substr(68,70)) << ",";
+						cout << toAlg(list[k].substr(70,72)) << ",";
+						cout << list[k] << "\n";
+					}
+
+				}
+				else if (board.get(i,j) == board.BLACKROOK)
+				{
+					piece = new BlackRook(i, j, board);
+					list = piece->generatePreList();
+					for (k = 0; k < (int)list.size(); k++)
+					{
+						cout << "Rook,";
+						cout << toAlg(list[k].substr(68,70)) << ",";
+						cout << toAlg(list[k].substr(70,72)) << ",";
+						cout << list[k] << "\n";
+					}
+
+				}
+				else if (board.get(i,j) == board.BLACKBISHOP)
+				{
+					piece = new BlackBishop(i, j, board);
+					list = piece->generatePreList();
+					for (k = 0; k < (int)list.size(); k++)
+					{
+						cout << "Bishop,";
+						cout << toAlg(list[k].substr(68,70)) << ",";
+						cout << toAlg(list[k].substr(70,72)) << ",";
+						cout << list[k] << "\n";
+					}
+
+				}
+				else if (board.get(i,j) == board.BLACKQUEEN)
+				{
+					piece = new BlackRook(i, j, board);
+					list = piece->generatePreList();
+					for (k = 0; k < (int)list.size(); k++)
+					{
+						cout << "Queen,";
 						cout << toAlg(list[k].substr(68,70)) << ",";
 						cout << toAlg(list[k].substr(70,72)) << ",";
 						cout << list[k] << "\n";

@@ -14,15 +14,15 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef NN_DCHESS_KNIGHT
-#define NN_DCHESS_KNIGHT
+#ifndef NN_DCHESS_BISHOP
+#define NN_DCHESS_BISHOP
 
 #include "Piece.cpp"
 #include <vector>
 #include <utility>
 
 
-class Knight : public Piece
+class Bishop : public Piece
 {
 	
 	public:
@@ -32,24 +32,20 @@ class Knight : public Piece
 		std::vector<std::pair<int,int> > moves;
 		std::vector<std::string> output;
 
-		moves.push_back(std::pair<int,int>(1,2));
-		moves.push_back(std::pair<int,int>(1,-2));
-		moves.push_back(std::pair<int,int>(2,1));
-		moves.push_back(std::pair<int,int>(2,-1));
-		moves.push_back(std::pair<int,int>(-1,2));
-		moves.push_back(std::pair<int,int>(-1,-2));
-		moves.push_back(std::pair<int,int>(-2,1));
-		moves.push_back(std::pair<int,int>(-2,-1));
+		moves.push_back(std::pair<int,int>(1,1));
+		moves.push_back(std::pair<int,int>(1,-1));
+		moves.push_back(std::pair<int,int>(-1,1));
+		moves.push_back(std::pair<int,int>(-1,-1));
 
 		for (i = 0; i < (int)moves.size(); i++)
 		{
-			addBoard(output, x, y, moves[i]);
+			searchDir(output, x, y, moves[i]);
 		}
 
 		return output;
 	}
 
-	virtual ~Knight() { }
+	virtual ~Bishop() { }
 };
 
 

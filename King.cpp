@@ -24,31 +24,7 @@
 
 class King : public Piece
 {
-	protected:
-	int direction;
-	int homerank;
-	int typecode;
 	
-	void addBoard(std::vector<std::string> &output, int posx, int posy, std::pair<int,int>& move) const
-	{
-		ChessBoard temp;
-		if ((posy + move.second <= 8) && (posy + move.second >= 1)
-			&& (posx + move.first <= 8) && (posx + move.first >= 1)) 
-		{
-			if ((board.get(posx + move.first, posy + move.second) == -1)
-				|| ((direction == 1) && (board.get(posx + move.first, posy + move.second) > 6)) 
-				|| ((direction == -1) && (board.get(posx + move.first, posy + move.second) < 6)))
-			{
-				temp = ChessBoard(board);
-				temp.set(posx, posy, -1);
-				temp.set(posx + move.first, posy + move.second, typecode);
-				temp.setLastMove(posx, posy, posx + move.first, posy + move.second);
-				temp.changeTurn();
-				output.push_back(temp.toString());
-			}
-		}	
-	}
-
 	public:
 	std::vector<std::string> generatePreList()
 	{

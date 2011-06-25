@@ -24,9 +24,6 @@
 class Pawn : public Piece
 {
 	protected:
-	int direction;
-	int homerank;
-	int typecode;
 	std::vector<int> team;
 	
 	public:
