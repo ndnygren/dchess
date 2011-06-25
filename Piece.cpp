@@ -29,6 +29,8 @@ class Piece
 	int typecode;
 	ChessBoard board;
 
+
+
 	void addBoard(std::vector<std::string> &output, int posx, int posy, std::pair<int,int>& move) const
 	{
 		ChessBoard temp;
@@ -44,6 +46,7 @@ class Piece
 				temp.set(posx + move.first, posy + move.second, typecode);
 				temp.setLastMove(posx, posy, posx + move.first, posy + move.second);
 				temp.changeTurn();
+				temp.checkKingRookHome();
 				output.push_back(temp.toString());
 			}
 		}	

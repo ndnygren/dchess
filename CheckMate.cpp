@@ -27,6 +27,7 @@ int main(int argc, char** argv)
 	int i;
 	ChessBoard board;
 
+	string revboard;
 	vector<string> list;
 
 	if (argc > 1)
@@ -36,14 +37,16 @@ int main(int argc, char** argv)
 
 	for (i = 0; i < (int)list.size(); i++)
 	{
-		if (kingKillable(list[i]) == false) { return 0; }
+		if (kingKillable(list[i]) == false) { cout << "Moves Available"; return 0; }
 	}
 
 	board.loadString(argv[1]);
 
 	board.changeTurn();
 
-	if (kingKillable(board.toString()))
+	revboard = "Test,00,00," + board.toString();
+
+	if (kingKillable(revboard))
 	{
 		cout << "Checkmate\n";
 	}

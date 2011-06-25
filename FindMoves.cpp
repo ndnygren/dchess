@@ -225,7 +225,7 @@ vector<string> genList(const string& original)
 				}
 				else if (board.get(i,j) == board.BLACKQUEEN)
 				{
-					piece = new BlackRook(i, j, board);
+					piece = new BlackQueen(i, j, board);
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{

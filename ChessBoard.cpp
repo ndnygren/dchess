@@ -21,6 +21,23 @@ bool ChessBoard::whiteTurn() const { return whiteturn; }
 int ChessBoard::castleData() const { return castle; }
 int ChessBoard::enPassantData(int i) const { return enpassant[i]; }
 
+void ChessBoard::checkKingRookHome()
+{
+	if (get(1,1) != WHITEROOK)
+		{ castle = castle | 32; }
+	if (get(8,1) != WHITEROOK)
+		{ castle = castle | 16; }
+	if (get(1,8) != BLACKROOK)
+		{ castle = castle | 2; }
+	if (get(8,8) != BLACKROOK)
+		{ castle = castle | 1; }
+	if (get(5,1) != WHITEKING)
+		{ castle = castle | 64; }
+	if (get(5,8) != BLACKKING)
+		{ castle = castle | 4; }
+
+}
+
 int ChessBoard::get(int x, int y) const
 {
 	if ((x > 0) && (x <= 8) && (y > 0) && (y <= 8))

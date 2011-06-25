@@ -43,6 +43,7 @@ class ChessBoard
 	static const int BLACKQUEEN= 12;
 	static const int BLACKKING= 13;
 
+	void checkKingRookHome();
 	bool whiteTurn() const;
 	int castleData() const;
 	int enPassantData(int i) const;
