@@ -33,7 +33,7 @@
 
 using namespace std;
 
-string toAlg(string input)
+string toAlg(const string& input)
 {
 	string temp;
 	if (input.at(0) == '1') { temp = "A"; }
@@ -49,21 +49,16 @@ string toAlg(string input)
 	return temp;
 }
 
-int main(int argc, char** argv)
+vector<string> genList(const string& original)
 {
 	int i,j,k;
 	ChessBoard board;
 	Piece* piece;
 	vector<string> list;
+	vector<string> outlist;
+	string temp;
 
-	if (argc > 1)
-		{ board.loadString(argv[1]); }
-	else
-		{ board.loadString("AA1121314151617181122232425262728217273747576777871828384858687888000000"); }
-
-/*		if (args.length > 0) { System.out.println(args[0]); }
-		else { System.out.println("AA1121314151617181122232425262728217273747576777871828384858687888000000"); }
-		System.out.println(board.toString());*/
+	board.loadString(original);
 
 	for (i = 1; i < 9; i++)
 		for (j = 1; j < 9; j++)
@@ -76,12 +71,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Pawn,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Pawn,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.WHITEKING)
 				{
@@ -89,12 +85,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "King,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "King,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.WHITEKNIGHT)
 				{
@@ -102,11 +99,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Knight,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Knight,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
+					delete piece;
 
 				}
 				else if (board.get(i,j) == board.WHITEROOK)
@@ -115,12 +114,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Rook,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Rook,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.WHITEBISHOP)
 				{
@@ -128,12 +128,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Bishop,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Bishop,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.WHITEQUEEN)
 				{
@@ -141,12 +142,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Queen,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Queen,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 			}
 			else
@@ -157,12 +159,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Pawn,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Pawn,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKKING)
 				{
@@ -170,12 +173,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "King,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "King,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKKNIGHT)
 				{
@@ -183,12 +187,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Knight,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Knight,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKROOK)
 				{
@@ -196,12 +201,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Rook,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Rook,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKBISHOP)
 				{
@@ -209,12 +215,13 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Bishop,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Bishop,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKQUEEN)
 				{
@@ -222,15 +229,93 @@ int main(int argc, char** argv)
 					list = piece->generatePreList();
 					for (k = 0; k < (int)list.size(); k++)
 					{
-						cout << "Queen,";
-						cout << toAlg(list[k].substr(68,70)) << ",";
-						cout << toAlg(list[k].substr(70,72)) << ",";
-						cout << list[k] << "\n";
+						temp = "Queen,";
+						temp += toAlg(list[k].substr(68,70)) + ",";
+						temp += toAlg(list[k].substr(70,72)) + ",";
+						temp += list[k];
+						outlist.push_back(temp);
 					}
-
+					delete piece;
 				}
 			}
 		}
+
+	return outlist;
+
+}
+
+bool w_commas(char t)
+{
+	switch(t)
+	{
+		case ',':	return true;
+	}	
+	return false;
+}
+
+vector<string> breakwords(const string& input, bool (*whitespc)(char))
+{
+	int wordstart = -1;
+	int count = 0;
+	unsigned int i = 0;
+	vector<string> v_words;
+
+	for (i = 0; i < input.length(); i++)
+	{
+		if ((*whitespc)(input[i]))
+		{
+			if (wordstart != -1)
+			{
+					v_words.push_back(input.substr(
+						wordstart, i - wordstart));
+				wordstart = -1;
+				count++;
+			}
+		}
+		else if (wordstart == -1) { wordstart = i; }
+		
+	}
+	if (wordstart != -1)
+	{
+			v_words.push_back(input.substr(wordstart, 
+				input.length() - wordstart));
+		wordstart = -1;
+		count++;
+		
+	}
+	return v_words;
+}
+
+bool kingKillable(const string& input)
+{
+	int i;
+	vector<string> list = genList(breakwords(input, w_commas)[3]);
+	string board;
+
+	for (i = 0; i < (int)list.size(); i++)
+	{
+		board = breakwords(list[i], w_commas)[3];
+		if (board.substr(10,2) == "00" || board.substr(58,2) == "00")
+		{ return true; }
+	}
+	return false;
+}
+
+int main(int argc, char** argv)
+{
+	int i;
+
+	vector<string> list;
+
+	if (argc > 1)
+		{ list = genList(argv[1]); }
+	else
+		{ list = genList("AA1121314151617181122232425262728217273747576777871828384858687888000000"); }
+
+	for (i = 0; i < (int)list.size(); i++)
+	{
+		if (kingKillable(list[i]) == false) { cout << list[i] << "\n"; }
+	}
 
 	return 0;
 }

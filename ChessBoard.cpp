@@ -52,7 +52,7 @@ void ChessBoard::set(int x, int y, int type)
 		{ data[x - 1][y - 1] = type; }
 }
 
-void ChessBoard::loadString(std::string input)
+void ChessBoard::loadString(const std::string& input)
 {
 	int i;
 	int* intarray = new int[input.length() / 2];

@@ -56,7 +56,7 @@ class ChessBoard
 
 	void set(int x, int y, int type);
 
-	void loadString(std::string input);
+	void loadString(const std::string& input);
 	int iptob(int x, int y) const;
 	std::string btos(int x, int y) const;
 
