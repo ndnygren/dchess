@@ -1,0 +1,48 @@
+<html>
+<head><title>dchess - Game State Encoding</title></head>
+<body>
+<h1>Board State Encoding</h1>
+Nick Nygren<br>
+20100715<br><br>
+
+The chess board in the initial state is shown here.<br>
+<img src="loadedboard.png"><br>
+This state is fully described by the following information:
+<ul>
+<li>Current player's turn
+<li>Location of each peice, and which peices remain
+<li>Whether or not each rook and king has moved (to decide if Castling is allowed)
+<li>The last move made (to decide if En Passant)
+</ul>
+
+<h2>PlayerTurn</h2>
+This can be described by a single byte 0xAA for white, 0xBB for black<br>
+
+<h2>Peice Location</h2>
+Each peice will be given a single byte, all peices together will be described by a 32 byte string. 
+Each coordinate will be given 4bits. For example the left white knight begins at B1, the is encoded as 0x21.
+The peices are numbered in the following way:<br>
+<img src="numberedboard.png"><br>
+Put in this order the full string for the initial peice arrangment is(in hex):<br>
+11 21 31 41 51 61 71 81 12 22 32 42 52 62 72 82 17 27 37 47 57 67 77 87 18 28 38 48 58 68 78 88
+<h2>Castling Data</h2>
+All castling data can be described with a single byte describe in this table:<br>
+
+<table border=1>
+<tr><td>128</td><td>64</td><td>32</td><td>16</td><td>8</td><td>4</td><td>2</td><td>1</td></tr>
+<tr><td>0</td><td>1/0</td><td>1/0</td><td>1/0</td><td>0</td><td>1/0</td><td>1/0</td><td>1/0</td></tr>
+
+<tr><td colspan=2>W King(E1)</td><td colspan=2>W Rook (A1/H1)</td><td colspan=2>B King(E8)</td><td colspan=2>B Rook (A8/H8)</td></tr>
+</table><br>
+All bits are set to zero initial, then changed to 1 if that particular peice moves.
+<h2>En Passant Data</h2>
+2 bytes are used to determine the last move. For example, the standard opening move, Pawn E2 to E4 would be encoded as 0x5254. 
+This is set to 0x00 initially and this is recognized as meaning there have been no prior moves.
+
+<h2>The Initial State</h2>
+Concatinating 4 peices together we create the complete game state string which is now 36 bytes. The initial state is given as an example:<br>
+AA 11 21 31 41 51 61 71 81 12 22 32 42 52 62 72 82 17 27 37 47 57 67 77 87 18 28 38 48 58 68 78 88 00 00 00<br>
+
+
+</body>
+</html>
