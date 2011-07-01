@@ -43,6 +43,44 @@ This is set to 0x00 initially and this is recognized as meaning there have been 
 Concatinating 4 peices together we create the complete game state string which is now 36 bytes. The initial state is given as an example:<br>
 AA 11 21 31 41 51 61 71 81 12 22 32 42 52 62 72 82 17 27 37 47 57 67 77 87 18 28 38 48 58 68 78 88 00 00 00<br>
 
+<h1>Amendment - Promotion</h1>
+20110630<br><br>
+Given this fixed with encoding it is clear that only one queen of each color 
+could be allowed on the board at once. Since this is not in compliance with the 
+rules of chess(promtion is not limited to captured pieces), a change must be made to the
+encoding.<br>
+
+Since there is a considerable ammount of data already stored in this format, we proceed with 2 
+goals in mind:
+<ol>
+<li> The new format should be backward compatible.
+<li> The new format should remain fixed at the same width(so the database schema need not change).
+</ol>
+This change will be made at each pawn's index in the data array, since each may be promoted. 
+There are 64 possible board positions, plus the value 0x00, which indicates a captured piece.
+Since a entire byte was used to represent this, there is at least one bit's worth of free space
+somewhere, in each byte.</br>
+
+Currently the piece position is stored as <em>(x,y)</em> in <em>[1,8]X[1,8]</em> with <em>(1,1)</em>
+indicating the bottom left corner. This will be refered to as the <em>pawn space</em>.<br>
+
+Due to the offset to allow <em>(0,0)</em> to indicate capture, there is not room for a truly "square" <em>8x8</em>
+<em>queen space</em>. Instead, a piece which has been promoted to queen will exist 
+in a "rectangular" space at <em>[9,12]x[0,15]</em> this contains exactly the <em>64</em> values needed to 
+describe the queens position. This also allows the left 4 bits of the byte, <em>L</em>, 
+to be a quick indicator of type:
+<ul>
+<li> <em>L = 0</em> : piece is captured
+<li> <em>0 < L < 9</em> : piece is a pawn
+<li> <em>L > 8 </em> : piece is a queen
+</ul>
+Then the mappings into the byte are as follows:
+<ul>
+<li>for pawns: <em>f(x,y) = 16*x + y</em>
+<li>for queens: <em>g(x,y) = 16*9 + 8*(x-1) + (y-1)</em>
+</ul>
+And, operating under the assumption that <em>(x,y)</em> in <em>[1,8]X[1,8]</em>, the images 
+of these mappings will have no overlap.<br>
 
 </body>
 </html>
