@@ -64,12 +64,12 @@ void ChessBoard::set(int loc, int type)
 	if (type == WHITEPAWN && (loc >> 4) > 8)
 	{
 		realloc = ((loc - 16*9) % 8) + (((loc - 16*9) / 8) * 16);
-		set(realloc >> 4, realloc & 0x0F, WHITEQUEEN);
+		set((realloc >> 4) + 1, (realloc & 0x0F) + 1, WHITEQUEEN);
 	}
 	else if (type == BLACKPAWN && (loc >> 4) > 8)
 	{
 		realloc = ((loc - 16*9) % 8) + (((loc - 16*9) / 8) * 16);
-		set(realloc >> 4, realloc & 0x0F, BLACKQUEEN);
+		set((realloc >> 4) + 1, (realloc & 0x0F) + 1, BLACKQUEEN);
 	}
 	else if ((loc >> 4) > 0)
 		{ set(loc >> 4, loc & 0x0F, type); }
@@ -311,7 +311,7 @@ std::string ChessBoard::toString() const
 				}
 				else
 				{
-					parray[8 + bp] = qiptob(i,j);
+					parray[16 + bp] = qiptob(i,j);
 					bp++;
 				}
 			}
