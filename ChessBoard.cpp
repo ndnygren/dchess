@@ -21,6 +21,19 @@ bool ChessBoard::whiteTurn() const { return whiteturn; }
 int ChessBoard::castleData() const { return castle; }
 int ChessBoard::enPassantData(int i) const { return enpassant[i]; }
 
+void ChessBoard::checkPromotion()
+{
+	int x = 0;
+
+	for (x = 0; x <= 8; x++)
+	{
+		if (get(x,1) == BLACKPAWN)
+			{ set(x, 1, BLACKQUEEN); }
+		if (get(x,8) == WHITEPAWN)
+			{ set(x, 8, WHITEQUEEN); }
+	}
+}
+
 void ChessBoard::checkKingRookHome()
 {
 	if (get(1,1) != WHITEROOK)
@@ -47,8 +60,18 @@ int ChessBoard::get(int x, int y) const
 
 void ChessBoard::set(int loc, int type)
 {
-//		System.err.println("setting " + loc + "(" + (loc >> 4) + "," + (loc & 0x0F) + ") to " + type);
-	if ((loc >> 4) > 0)
+	int realloc = 0;
+	if (type == WHITEPAWN && (loc >> 4) > 8)
+	{
+		realloc = ((loc - 16*9) % 8) + (((loc - 16*9) / 8) * 16);
+		set(realloc >> 4, realloc & 0x0F, WHITEQUEEN);
+	}
+	else if (type == BLACKPAWN && (loc >> 4) > 8)
+	{
+		realloc = ((loc - 16*9) % 8) + (((loc - 16*9) / 8) * 16);
+		set(realloc >> 4, realloc & 0x0F, BLACKQUEEN);
+	}
+	else if ((loc >> 4) > 0)
 		{ set(loc >> 4, loc & 0x0F, type); }
 	else
 		{ set(-(loc >> 4), loc & 0x0F, type); }
@@ -123,6 +146,9 @@ void ChessBoard::loadString(const std::string& input)
 	enpassant[1] = intarray[35];
 	delete [] intarray;
 }
+
+int ChessBoard::qiptob(int x, int y) const
+	{ return (int)((16*9 + 8*(x-1) + (y-1)) & 0xFF); }
 
 int ChessBoard::iptob(int x, int y) const
 	{ return (int)(((x << 4) + y) & 0xFF); }
@@ -205,6 +231,8 @@ std::string ChessBoard::toString() const
 	int bk = 0;
 	int wb = 0;
 	int bb = 0;
+	int wq = 0;
+	int bq = 0;
 	int parray[32];
 
 	for (i = 0; i < 32; i++)
@@ -262,9 +290,31 @@ std::string ChessBoard::toString() const
 			else if (get(i,j) == BLACKKING)
 				{ parray[28] = iptob(i,j); }
 			if (get(i,j) == WHITEQUEEN)
-				{ parray[3] = iptob(i,j); }
+			{
+				if (wq == 0)
+				{
+					parray[3] = iptob(i,j); 
+					wq++;
+				}
+				else
+				{
+					parray[8 + wp] = qiptob(i,j);
+					wp++;
+				}
+			}
 			else if (get(i,j) == BLACKQUEEN)
-				{ parray[27] = iptob(i,j); }
+			{
+				if (bq == 0)
+				{
+					parray[27] = iptob(i,j);
+					bq++;
+				}
+				else
+				{
+					parray[8 + bp] = qiptob(i,j);
+					bp++;
+				}
+			}
 		}
 		
 	}

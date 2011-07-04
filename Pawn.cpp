@@ -43,6 +43,7 @@ class Pawn : public Piece
 			temp.set(x,y + direction,typecode);
 			temp.setLastMove(x,y,x,y + direction);
 			temp.changeTurn();
+			temp.checkPromotion();
 			output.push_back(temp.toString());
 		}
 		if ((y == homerank) && (board.get(x, y + direction) == -1) && (board.get(x, y + (2 * direction)) == -1))
@@ -52,6 +53,7 @@ class Pawn : public Piece
 			temp.set(x,y + 2*direction,typecode);
 			temp.setLastMove(x,y,x,y + 2*direction);
 			temp.changeTurn();
+			temp.checkPromotion();
 			output.push_back(temp.toString());
 		}
 		if ((y + direction <= 8) && (y + direction >= 1) && (x + 1 < 9))
@@ -63,6 +65,7 @@ class Pawn : public Piece
 				temp.set(x + 1, y + direction, typecode);
 				temp.setLastMove(x,y,x + 1, y + direction);
 				temp.changeTurn();
+				temp.checkPromotion();
 				output.push_back(temp.toString());
 			}
 			else if ((direction == -1) && (board.get(x + 1, y + direction) < 6) && (board.get(x + 1, y + direction) >= 0))
@@ -72,6 +75,7 @@ class Pawn : public Piece
 				temp.set(x + 1, y + direction, typecode);
 				temp.setLastMove(x,y,x + 1, y + direction);
 				temp.changeTurn();
+				temp.checkPromotion();
 				output.push_back(temp.toString());
 			}
 		}
@@ -84,6 +88,7 @@ class Pawn : public Piece
 				temp.set(x - 1, y + direction, typecode);
 				temp.setLastMove(x,y,x - 1, y + direction);
 				temp.changeTurn();
+				temp.checkPromotion();
 				output.push_back(temp.toString());
 			}
 			else if ((direction == -1) && (board.get(x - 1, y + direction) < 6) && (board.get(x - 1, y + direction) >= 0))
@@ -93,6 +98,7 @@ class Pawn : public Piece
 				temp.set(x - 1, y + direction, typecode);
 				temp.setLastMove(x,y,x - 1, y + direction);
 				temp.changeTurn();
+				temp.checkPromotion();
 				output.push_back(temp.toString());
 			}
 		}

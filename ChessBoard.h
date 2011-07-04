@@ -43,6 +43,7 @@ class ChessBoard
 	static const int BLACKQUEEN= 12;
 	static const int BLACKKING= 13;
 
+	void checkPromotion();
 	void checkKingRookHome();
 	bool whiteTurn() const;
 	int castleData() const;
@@ -59,6 +60,7 @@ class ChessBoard
 	void set(int x, int y, int type);
 
 	void loadString(const std::string& input);
+	int qiptob(int x, int y) const;
 	int iptob(int x, int y) const;
 	std::string btos(int x, int y) const;
 
