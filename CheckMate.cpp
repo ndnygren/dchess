@@ -25,8 +25,11 @@ using namespace std;
 int main(int argc, char** argv)
 {
 	int i;
+	int count = 0;
+
 	ChessBoard board;
 
+	string oneboard;
 	string revboard;
 	vector<string> list;
 
@@ -37,7 +40,26 @@ int main(int argc, char** argv)
 
 	for (i = 0; i < (int)list.size(); i++)
 	{
-		if (kingKillable(list[i]) == false) { cout << "Moves Available"; return 0; }
+		if (kingKillable(list[i]) == false) 
+		{
+			count++;
+
+			if (count > 1)
+			{
+				cout << "Moves Available\n";
+				return 0;
+			}
+			else
+			{
+				oneboard = breakwords(list[i], w_commas)[3];
+			}
+		}
+	}
+
+	if (count == 1)
+	{
+		cout << "One:" << oneboard <<"\n";
+		return 0;
 	}
 
 	board.loadString(argv[1]);
