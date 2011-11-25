@@ -76,6 +76,7 @@ class Piece
 	int y;
 	bool isWhite;
 
+	virtual std::string typeString() const = 0;
 	virtual std::vector<std::string> generatePreList() = 0;
 
 	virtual ~Piece() { }

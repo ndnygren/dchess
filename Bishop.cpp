@@ -26,7 +26,7 @@ class Bishop : public Piece
 {
 	
 	public:
-	std::vector<std::string> generatePreList()
+	virtual std::vector<std::string> generatePreList()
 	{
 		int i;
 		std::vector<std::pair<int,int> > moves;
@@ -44,6 +44,9 @@ class Bishop : public Piece
 
 		return output;
 	}
+
+
+	virtual std::string typeString() const { return "Bishop,"; }
 
 	virtual ~Bishop() { }
 };

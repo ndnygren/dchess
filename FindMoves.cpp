@@ -68,175 +68,70 @@ vector<string> genList(const string& original)
 				if (board.get(i,j) == board.WHITEPAWN)
 				{
 					piece = new WhitePawn(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Pawn,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.WHITEKING)
 				{
 					piece = new WhiteKing(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "King,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.WHITEKNIGHT)
 				{
 					piece = new WhiteKnight(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Knight,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
-
 				}
 				else if (board.get(i,j) == board.WHITEROOK)
 				{
 					piece = new WhiteRook(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Rook,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.WHITEBISHOP)
 				{
 					piece = new WhiteBishop(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Bishop,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.WHITEQUEEN)
 				{
 					piece = new WhiteQueen(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Queen,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
+				else { piece = 0; }
 			}
 			else
 			{
 				if (board.get(i,j) == board.BLACKPAWN)
 				{
 					piece = new BlackPawn(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Pawn,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKKING)
 				{
 					piece = new BlackKing(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "King,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKKNIGHT)
 				{
 					piece = new BlackKnight(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Knight,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKROOK)
 				{
 					piece = new BlackRook(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Rook,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKBISHOP)
 				{
 					piece = new BlackBishop(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Bishop,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
 				else if (board.get(i,j) == board.BLACKQUEEN)
 				{
 					piece = new BlackQueen(i, j, board);
-					list = piece->generatePreList();
-					for (k = 0; k < (int)list.size(); k++)
-					{
-						temp = "Queen,";
-						temp += toAlg(list[k].substr(68,70)) + ",";
-						temp += toAlg(list[k].substr(70,72)) + ",";
-						temp += list[k];
-						outlist.push_back(temp);
-					}
-					delete piece;
 				}
+				else { piece = 0; }
+			}
+
+			if (piece != 0)
+			{
+				list = piece->generatePreList();
+				for (k = 0; k < (int)list.size(); k++)
+				{
+					temp = piece->typeString();
+					temp += toAlg(list[k].substr(68,70)) + ",";
+					temp += toAlg(list[k].substr(70,72)) + ",";
+					temp += list[k];
+					outlist.push_back(temp);
+				}
+				delete piece;
 			}
 		}
 

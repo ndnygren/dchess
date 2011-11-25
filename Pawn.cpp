@@ -29,7 +29,7 @@ class Pawn : public Piece
 	std::vector<int> team;
 	
 	public:
-	std::vector<std::string> generatePreList()
+	virtual std::vector<std::string> generatePreList()
 	{
 		std::vector<std::string> output;
 		ChessBoard temp;
@@ -128,6 +128,8 @@ class Pawn : public Piece
 
 		return output;
 	}
+
+	virtual std::string typeString() const { return "Pawn,"; }
 
 	virtual ~Pawn() { }
 };

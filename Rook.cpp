@@ -26,7 +26,7 @@ class Rook : public Piece
 {
 	
 	public:
-	std::vector<std::string> generatePreList()
+	virtual std::vector<std::string> generatePreList()
 	{
 		int i;
 		std::vector<std::pair<int,int> > moves;
@@ -44,6 +44,8 @@ class Rook : public Piece
 
 		return output;
 	}
+
+	virtual std::string typeString() const { return "Rook,"; }
 
 	virtual ~Rook() { }
 };

@@ -26,7 +26,7 @@ class King : public Piece
 {
 	
 	public:
-	std::vector<std::string> generatePreList()
+	virtual std::vector<std::string> generatePreList()
 	{
 		ChessBoard temp;
 		int i;
@@ -126,6 +126,8 @@ class King : public Piece
 
 		return output;
 	}
+
+	virtual std::string typeString() const { return "King,"; }
 
 	virtual ~King() { }
 };
