@@ -1,5 +1,5 @@
 DO_C_O=g++ -c $(INC_DIR) -Wall
-objects=ChessBoard.o 
+objects=ChessBoard.o FindMoves.o 
 
 all: moves check
 
@@ -12,3 +12,5 @@ check: CheckMate.cpp FindMoves.cpp $(objects)
 ChessBoard.o: ChessBoard.cpp
 	$(DO_C_O) ChessBoard.cpp
 
+FindMoves.o: FindMoves.cpp
+	$(DO_C_O) FindMoves.cpp

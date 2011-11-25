@@ -18,14 +18,19 @@
 #define NN_DCHESS_KING
 
 #include "Piece.cpp"
+#include "FindMoves.h"
 #include <vector>
 #include <utility>
 
 
 class King : public Piece
 {
-	
+	protected:
+	bool recurse;
+
 	public:
+	void setRecurse(bool input) { recurse = input; }
+
 	virtual std::vector<std::string> generatePreList()
 	{
 		ChessBoard temp;
@@ -57,15 +62,18 @@ class King : public Piece
 				&& !(board.castleData() & 64) 
 				&& !(board.castleData() & 32))
 			{
-				temp = ChessBoard(board);
-				temp.set(1, 1, -1);
-				temp.set(3, 1, ChessBoard::WHITEKING);
-				temp.set(4, 1, ChessBoard::WHITEROOK);
-				temp.set(5, 1, -1);
-				temp.setLastMove(5, 1, 3, 1);
-				temp.changeTurn();
-				temp.checkKingRookHome();
-				output.push_back(temp.toString());
+				if (recurse && !kingKillable("k,1,1," + board.toString()) && !leftCastleThroughCheck(board))
+				{
+					temp = ChessBoard(board);
+					temp.set(1, 1, -1);
+					temp.set(3, 1, ChessBoard::WHITEKING);
+					temp.set(4, 1, ChessBoard::WHITEROOK);
+					temp.set(5, 1, -1);
+					temp.setLastMove(5, 1, 3, 1);
+					temp.changeTurn();
+					temp.checkKingRookHome();
+					output.push_back(temp.toString());
+				}
 			}
 			if (x == 5 && y == 1
 				&& board.get(6,1) == -1 
@@ -74,15 +82,18 @@ class King : public Piece
 				&& !(board.castleData() & 64) 
 				&& !(board.castleData() & 16))
 			{
-				temp = ChessBoard(board);
-				temp.set(8, 1, -1);
-				temp.set(7, 1, ChessBoard::WHITEKING);
-				temp.set(6, 1, ChessBoard::WHITEROOK);
-				temp.set(5, 1, -1);
-				temp.setLastMove(5, 1, 7, 1);
-				temp.changeTurn();
-				temp.checkKingRookHome();
-				output.push_back(temp.toString());
+				if (recurse && !kingKillable("k,1,1,"+board.toString()) && !rightCastleThroughCheck(board))
+				{
+					temp = ChessBoard(board);
+					temp.set(8, 1, -1);
+					temp.set(7, 1, ChessBoard::WHITEKING);
+					temp.set(6, 1, ChessBoard::WHITEROOK);
+					temp.set(5, 1, -1);
+					temp.setLastMove(5, 1, 7, 1);
+					temp.changeTurn();
+					temp.checkKingRookHome();
+					output.push_back(temp.toString());
+				}
 			}
 		}	
 		if (typecode == ChessBoard::BLACKKING) 
@@ -95,15 +106,18 @@ class King : public Piece
 				&& !(board.castleData() & 4) 
 				&& !(board.castleData() & 2))
 			{
-				temp = ChessBoard(board);
-				temp.set(1, 8, -1);
-				temp.set(3, 8, ChessBoard::BLACKKING);
-				temp.set(4, 8, ChessBoard::BLACKROOK);
-				temp.set(5, 8, -1);
-				temp.setLastMove(5, 8, 3, 8);
-				temp.changeTurn();
-				temp.checkKingRookHome();
-				output.push_back(temp.toString());
+				if (recurse && !kingKillable("k,1,1,"+board.toString()) && !leftCastleThroughCheck(board))
+				{
+					temp = ChessBoard(board);
+					temp.set(1, 8, -1);
+					temp.set(3, 8, ChessBoard::BLACKKING);
+					temp.set(4, 8, ChessBoard::BLACKROOK);
+					temp.set(5, 8, -1);
+					temp.setLastMove(5, 8, 3, 8);
+					temp.changeTurn();
+					temp.checkKingRookHome();
+					output.push_back(temp.toString());
+				}
 			}
 			if (x == 5 && y == 8
 				&& board.get(6,8) == -1 
@@ -112,15 +126,18 @@ class King : public Piece
 				&& !(board.castleData() & 4) 
 				&& !(board.castleData() & 1))
 			{
-				temp = ChessBoard(board);
-				temp.set(8, 8, -1);
-				temp.set(7, 8, ChessBoard::BLACKKING);
-				temp.set(6, 8, ChessBoard::BLACKROOK);
-				temp.set(5, 8, -1);
-				temp.setLastMove(5, 8, 7, 8);
-				temp.changeTurn();
-				temp.checkKingRookHome();
-				output.push_back(temp.toString());
+				if (recurse && !kingKillable("k,1,1,"+board.toString()) && !rightCastleThroughCheck(board))
+				{
+					temp = ChessBoard(board);
+					temp.set(8, 8, -1);
+					temp.set(7, 8, ChessBoard::BLACKKING);
+					temp.set(6, 8, ChessBoard::BLACKROOK);
+					temp.set(5, 8, -1);
+					temp.setLastMove(5, 8, 7, 8);
+					temp.changeTurn();
+					temp.checkKingRookHome();
+					output.push_back(temp.toString());
+				}
 			}
 		}	
 

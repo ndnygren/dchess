@@ -14,7 +14,6 @@
  *  You should have received a copy of the GNU General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#include "ChessBoard.h"
 #include "WhitePawn.cpp"
 #include "BlackPawn.cpp"
 #include "WhiteKing.cpp"
@@ -27,9 +26,8 @@
 #include "BlackBishop.cpp"
 #include "WhiteQueen.cpp"
 #include "BlackQueen.cpp"
-#include <string>
-#include <vector>
-#include <iostream>
+#include "FindMoves.h"
+
 
 using namespace std;
 
@@ -49,7 +47,7 @@ string toAlg(const string& input)
 	return temp;
 }
 
-vector<string> genList(const string& original)
+vector<string> genList(const string& original, bool recurse)
 {
 	int i,j,k;
 	ChessBoard board;
@@ -72,6 +70,7 @@ vector<string> genList(const string& original)
 				else if (board.get(i,j) == board.WHITEKING)
 				{
 					piece = new WhiteKing(i, j, board);
+					((King*)piece)->setRecurse(recurse);
 				}
 				else if (board.get(i,j) == board.WHITEKNIGHT)
 				{
@@ -100,6 +99,7 @@ vector<string> genList(const string& original)
 				else if (board.get(i,j) == board.BLACKKING)
 				{
 					piece = new BlackKing(i, j, board);
+					((King*)piece)->setRecurse(recurse);
 				}
 				else if (board.get(i,j) == board.BLACKKNIGHT)
 				{
@@ -184,8 +184,9 @@ vector<string> breakwords(const string& input, bool (*whitespc)(char))
 bool kingKillable(const string& input)
 {
 	int i;
-	vector<string> list = genList(breakwords(input, w_commas)[3]);
+	vector<string> list = genList(breakwords(input, w_commas)[3], false);
 	string board;
+
 
 	for (i = 0; i < (int)list.size(); i++)
 	{
@@ -196,3 +197,38 @@ bool kingKillable(const string& input)
 	return false;
 }
 
+bool leftCastleThroughCheck(const ChessBoard& input)
+{
+	ChessBoard alter = input;
+	if (input.whiteTurn())
+	{
+		alter.set(5, 1, -1);
+		alter.set(4, 1, ChessBoard::WHITEKING);
+		return kingKillable("k,1,1," + alter.toString());
+	}
+	else
+	{
+		alter.set(5, 8, -1);
+		alter.set(4, 8, ChessBoard::WHITEKING);
+		return kingKillable("k,1,1," + alter.toString());
+	}
+
+}
+
+bool rightCastleThroughCheck(const ChessBoard& input)
+{
+	ChessBoard alter = input;
+	if (input.whiteTurn())
+	{
+		alter.set(5, 1, -1);
+		alter.set(6, 1, ChessBoard::WHITEKING);
+		return kingKillable("K,1,1," + alter.toString());
+	}
+	else
+	{
+		alter.set(5, 8, -1);
+		alter.set(6, 8, ChessBoard::WHITEKING);
+		return kingKillable("K,1,1," + alter.toString());
+	}
+
+}
