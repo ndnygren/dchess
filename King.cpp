@@ -33,7 +33,8 @@ class King : public Piece
 
 	virtual std::vector<std::string> generatePreList()
 	{
-		ChessBoard temp;
+		ChessBoard temp, aboard;
+		
 		int i;
 		std::vector<std::pair<int,int> > moves;
 		std::vector<std::string> output;
@@ -62,7 +63,9 @@ class King : public Piece
 				&& !(board.castleData() & 64) 
 				&& !(board.castleData() & 32))
 			{
-				if (recurse && !kingKillable("k,1,1," + board.toString()) && !leftCastleThroughCheck(board))
+				aboard = ChessBoard(board);
+				aboard.changeTurn();
+				if (recurse && !kingKillable("k,1,1," + aboard.toString()) && !leftCastleThroughCheck(board))
 				{
 					temp = ChessBoard(board);
 					temp.set(1, 1, -1);
@@ -82,7 +85,9 @@ class King : public Piece
 				&& !(board.castleData() & 64) 
 				&& !(board.castleData() & 16))
 			{
-				if (recurse && !kingKillable("k,1,1,"+board.toString()) && !rightCastleThroughCheck(board))
+				aboard = ChessBoard(board);
+				aboard.changeTurn();
+				if (recurse && !kingKillable("k,1,1,"+aboard.toString()) && !rightCastleThroughCheck(board))
 				{
 					temp = ChessBoard(board);
 					temp.set(8, 1, -1);
@@ -106,7 +111,9 @@ class King : public Piece
 				&& !(board.castleData() & 4) 
 				&& !(board.castleData() & 2))
 			{
-				if (recurse && !kingKillable("k,1,1,"+board.toString()) && !leftCastleThroughCheck(board))
+				aboard = ChessBoard(board);
+				aboard.changeTurn();
+				if (recurse && !kingKillable("k,1,1,"+aboard.toString()) && !leftCastleThroughCheck(board))
 				{
 					temp = ChessBoard(board);
 					temp.set(1, 8, -1);
@@ -126,7 +133,9 @@ class King : public Piece
 				&& !(board.castleData() & 4) 
 				&& !(board.castleData() & 1))
 			{
-				if (recurse && !kingKillable("k,1,1,"+board.toString()) && !rightCastleThroughCheck(board))
+				aboard = ChessBoard(board);
+				aboard.changeTurn();
+				if (recurse && !kingKillable("k,1,1,"+aboard.toString()) && !rightCastleThroughCheck(board))
 				{
 					temp = ChessBoard(board);
 					temp.set(8, 8, -1);

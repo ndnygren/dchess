@@ -200,35 +200,35 @@ bool kingKillable(const string& input)
 bool leftCastleThroughCheck(const ChessBoard& input)
 {
 	ChessBoard alter = input;
+	alter.changeTurn();
 	if (input.whiteTurn())
 	{
 		alter.set(5, 1, -1);
 		alter.set(4, 1, ChessBoard::WHITEKING);
-		return kingKillable("k,1,1," + alter.toString());
 	}
 	else
 	{
 		alter.set(5, 8, -1);
-		alter.set(4, 8, ChessBoard::WHITEKING);
-		return kingKillable("k,1,1," + alter.toString());
+		alter.set(4, 8, ChessBoard::BLACKKING);
 	}
+	return kingKillable("k,1,1," + alter.toString());
 
 }
 
 bool rightCastleThroughCheck(const ChessBoard& input)
 {
 	ChessBoard alter = input;
+	alter.changeTurn();
 	if (input.whiteTurn())
 	{
 		alter.set(5, 1, -1);
 		alter.set(6, 1, ChessBoard::WHITEKING);
-		return kingKillable("K,1,1," + alter.toString());
 	}
 	else
 	{
 		alter.set(5, 8, -1);
-		alter.set(6, 8, ChessBoard::WHITEKING);
-		return kingKillable("K,1,1," + alter.toString());
+		alter.set(6, 8, ChessBoard::BLACKKING);
 	}
+	return kingKillable("K,1,1," + alter.toString());
 
 }
