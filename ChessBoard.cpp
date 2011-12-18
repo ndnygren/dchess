@@ -17,6 +17,8 @@
 #include<string>
 #include "ChessBoard.h"
 
+using namespace std;
+
 bool ChessBoard::whiteTurn() const { return whiteturn; }
 int ChessBoard::castleData() const { return castle; }
 int ChessBoard::enPassantData(int i) const { return enpassant[i]; }
@@ -200,7 +202,7 @@ std::string ChessBoard::btos(int input) const
 
 	if ((input & 0x0f) == 0x0f) { temp = temp + "F"; }
 	else if ((input & 0x0f) == 0x0e) { temp = temp + "E"; }
-	else if ((input & 0x0f) == 0x0f) { temp = temp + "D"; }
+	else if ((input & 0x0f) == 0x0d) { temp = temp + "D"; }
 	else if ((input & 0x0f) == 0x0c) { temp = temp + "C"; }
 	else if ((input & 0x0f) == 0x0b) { temp = temp + "B"; }
 	else if ((input & 0x0f) == 0x0a) { temp = temp + "A"; }
