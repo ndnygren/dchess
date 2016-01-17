@@ -67,6 +67,7 @@ class Piece
 			&& ($posx + $tx <= 8)
 			&& ($posy + $ty > 0)
 			&& ($posy + $ty <= 8));
+		//echo "temp: " . json_encode($temp). "\n";
 		return $temp;
 	}
 
@@ -104,7 +105,7 @@ class Rook extends Piece
 
 		foreach ($moves as $move)
 		{
-			$this->searchDir($this->x, $this->y, $move);
+			$output = array_merge($output, $this->searchDir($this->x, $this->y, $move));
 		}
 
 		return $output;
@@ -148,7 +149,7 @@ class Pawn extends Piece
 		}
 		if (($this->y == $this->homerank) && ($this->board->get($this->x, $this->y + $this->direction) == -1) && ($this->board->get($this->x, $this->y + (2 * $this->direction)) == -1))
 		{
-			$temp = ChessBoard($this->board);
+			$temp->copy($this->board);
 			$temp->set($this->x,$this->y,-1);
 			$temp->set($this->x,$this->y + 2*$this->direction,$this->typecode);
 			$temp->setLastMove($this->x,$this->y,$this->x,$this->y + 2*$this->direction);
@@ -160,7 +161,7 @@ class Pawn extends Piece
 		{
 			if (($this->direction == 1) && ($this->board->get($x + 1, $this->y + $this->direction) > 6))
 			{
-				$temp = ChessBoard($this->board);
+				$temp->copy($this->board);
 				$temp->set($this->x,$this->y,-1);
 				$temp->set($x + 1, $this->y + $this->direction, $this->typecode);
 				$temp->setLastMove($this->x,$this->y,$this->x + 1, $this->y + $this->direction);
@@ -170,7 +171,7 @@ class Pawn extends Piece
 			}
 			else if (($this->direction == -1) && ($this->board->get($x + 1, $this->y + $this->direction) < 6) && ($this->board->get($x + 1, $this->y + $this->direction) >= 0))
 			{
-				$temp = ChessBoard($this->board);
+				$temp->copy($this->board);
 				$temp->set($this->x,$this->y,-1);
 				$temp->set($x + 1, $this->y + $this->direction, $this->typecode);
 				$temp->setLastMove($this->x,$this->y,x + 1, $this->y + $this->direction);
@@ -183,7 +184,7 @@ class Pawn extends Piece
 		{
 			if (($this->direction == 1) && ($this->board->get($x - 1, $this->y + $this->direction) > 6))
 			{
-				$temp = ChessBoard($this->board);
+				$temp->copy($this->board);
 				$temp->set($this->x,$this->y,-1);
 				$temp->set($x - 1, $this->y + $this->direction, $this->typecode);
 				$temp->setLastMove($this->x,$this->y,x - 1, $this->y + $this->direction);
@@ -193,7 +194,7 @@ class Pawn extends Piece
 			}
 			else if (($this->direction == -1) && ($this->board->get($x - 1, $this->y + $this->direction) < 6) && ($this->board->get($x - 1, $this->y + $this->direction) >= 0))
 			{
-				$temp = ChessBoard($this->board);
+				$temp->copy($this->board);
 				$temp->set($this->x,$this->y,-1);
 				$temp->set($x - 1, $this->y + $this->direction, $this->typecode);
 				$temp->setLastMove($this->x,$this->y,x - 1, $this->y + $this->direction);
@@ -206,7 +207,7 @@ class Pawn extends Piece
 		$lastmove = $this->board->getLastMove();
 		$lastmoved = $this->board->get($lastmove[1] >> 4, $lastmove[1] & 0x0F);
 //		cout << "lastmove:" << $lastmove[0] << "," << $lastmove[1] << "\n";
-		if (ChessBoard::iptob($x+1,$y) == $lastmove[1] || ChessBoard::iptob($x-1,$y) == $lastmove[1])
+		if (ChessBoard::iptob($this->x+1,$this->y) == $lastmove[1] || ChessBoard::iptob($this->x-1,$this->y) == $lastmove[1])
 		{
 			if ($lastmove[0] - $lastmove[1] == 2*$this->direction)
 			{
@@ -299,7 +300,7 @@ class Queen extends Piece
 
 		foreach ($moves as $move)
 		{
-			$this->searchDir($this->x, $this->y, $move);
+			$output = array_merge($output, $this->searchDir($this->x, $this->y, $move));
 		}
 
 		return $output;
@@ -335,7 +336,7 @@ class Bishop extends Piece
 
 		foreach ($moves as $move)
 		{
-			$this->searchDir($this->x, $this->y, $move);
+			$output = array_merge($output, $this->searchDir($this->x, $this->y, $move));
 		}
 
 		return $output;
