@@ -1,6 +1,7 @@
 <?php
 
 include 'ChessBoard.php';
+include 'Pieces.php';
 
 /*  dchess - backend processing for chess application
  *  Copyright (C) 2016 Nick Nygren
@@ -51,28 +52,28 @@ function genList($original, $recurse) {
 			{
 				if ($board->get($i,$j) == ChessBoard::$WHITEPAWN)
 				{
-					$piece = new WhitePawn($i, $j, board);
+					$piece = new Pawn($i, $j, $board, true);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEKING)
 				{
-					$piece = new WhiteKing($i, $j, board);
+					$piece = new King($i, $j, $board, true);
 					$piece->setRecurse(recurse);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEKNIGHT)
 				{
-					$piece = new WhiteKnight($i, $j, board);
+					$piece = new Knight($i, $j, $board, true);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEROOK)
 				{
-					$piece = new WhiteRook($i, $j, board);
+					$piece = new Rook($i, $j, $board, true);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEBISHOP)
 				{
-					$piece = new WhiteBishop($i, $j, board);
+					$piece = new Bishop($i, $j, $board, true);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEQUEEN)
 				{
-					$piece = new WhiteQueen($i, $j, board);
+					$piece = new Queen($i, $j, $board, true);
 				}
 				else { $piece = 0; }
 			}
@@ -80,28 +81,28 @@ function genList($original, $recurse) {
 			{
 				if ($board->get($i,$j) == ChessBoard::$BLACKPAWN)
 				{
-					$piece = new BlackPawn($i, $j, board);
+					$piece = new Pawn($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKKING)
 				{
-					$piece = new BlackKing($i, $j, board);
+					$piece = new King($i, $j, $board, false);
 					$piece->setRecurse(recurse);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKKNIGHT)
 				{
-					$piece = new BlackKnight($i, $j, board);
+					$piece = new Knight($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKROOK)
 				{
-					$piece = new BlackRook($i, $j, board);
+					$piece = new Rook($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKBISHOP)
 				{
-					$piece = new BlackBishop($i, $j, board);
+					$piece = new Bishop($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKQUEEN)
 				{
-					$piece = new BlackQueen($i, $j, board);
+					$piece = new Queen($i, $j, $board, false);
 				}
 				else { $piece = 0; }
 			}

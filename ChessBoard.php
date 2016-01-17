@@ -40,6 +40,7 @@ class ChessBoard {
 	public function whiteTurn() { return $this->whiteturn; }
 	public function castleData() { return $this->castle; }
 	public function enPassantData($i) { return $this->enpassant[$i]; }
+	public function getLastMove() { return $this-> enpassant; }
 
 	public function checkPromotion()
 	{
@@ -333,11 +334,11 @@ class ChessBoard {
 		}
 
 		for ($i = 0; $i < 32; $i++)
-			{ $temp = $temp + $btos($parray[$i]); }
+			{ $temp = $temp + self::btos($parray[$i]); }
 
-		$temp = $temp + btos($this->castle);
-		$temp = $temp + btos($this->enpassant[0]);
-		$temp = $temp + btos($this->enpassant[1]);
+		$temp = $temp + self::btos($this->castle);
+		$temp = $temp + self::btos($this->enpassant[0]);
+		$temp = $temp + self::btos($this->enpassant[1]);
 
 		return $temp;
 
