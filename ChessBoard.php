@@ -40,7 +40,7 @@ class ChessBoard {
 	public function whiteTurn() { return $this->whiteturn; }
 	public function castleData() { return $this->castle; }
 	public function enPassantData($i) { return $this->enpassant[$i]; }
-	public function getLastMove() { return $this-> enpassant; }
+	public function getLastMove() { return $this->enpassant; }
 
 	public function checkPromotion()
 	{
@@ -100,8 +100,8 @@ class ChessBoard {
 
 	public function setLastMove($fx, $fy, $tx, $ty)
 	{
-		$this->enpassant[0] = self::iptob(fx,fy);
-		$this->enpassant[1] = self::iptob(tx,ty);
+		$this->enpassant[0] = self::iptob($fx,$fy);
+		$this->enpassant[1] = self::iptob($tx,$ty);
 	}
 
 	public function changeTurn()
@@ -167,7 +167,9 @@ class ChessBoard {
 		{ return ((16*9 + 8*($x-1) + ($y-1)) & 0xFF); }
 
 	public static function iptob($x, $y)
-		{ return ((($x << 4) + $y) & 0xFF); }
+	{
+		return ((($x << 4) + $y) & 0xFF); 
+	}
 
 	public static function btos2($x, $y)
 		{ return self::btos(self::iptob($x,$y)); }
@@ -336,9 +338,6 @@ class ChessBoard {
 		$temp .= self::btos($this->castle);
 		$temp .= self::btos($this->enpassant[0]);
 		$temp .= self::btos($this->enpassant[1]);
-
-		echo "parray: ".json_encode($parray)."\n";
-		echo "temp: " . $temp . "\n";
 
 		return $temp;
 

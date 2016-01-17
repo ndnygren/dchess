@@ -27,9 +27,11 @@ class Piece
 	public $y;
 	public $isWhite;
 
-	public function addBoard($output, $posx, $posy, $move)
+	public function addBoard($posx, $posy, $move)
 	{
+		$output = array();
 		$temp = new ChessBoard();
+		//echo $posx . "," . $posy . " to " . json_encode($move) . "\n";
 		if (($posy + $move[1] <= 8) && ($posy + $move[1] >= 1)
 			&& ($posx + $move[0] <= 8) && ($posx + $move[0] >= 1))
 		{
@@ -44,13 +46,12 @@ class Piece
 				$temp->changeTurn();
 				$temp->checkKingRookHome();
 				$output[] = $temp->toString();
-				echo "this should be a board: " . $temp->toString() . "\n";
 			}
 		}
 		return $output;
 	}
 
-	public function searchDir($output, $posx, $posy, $move)
+	public function searchDir($posx, $posy, $move)
 	{
 		$tx = 0;
 		$ty = 0;
@@ -59,8 +60,8 @@ class Piece
 		{
 			$tx = $tx + $move[0];
 			$ty = $ty + $move[1];
-			$diff = array(tx,ty);
-			$temp = array_merge($temp, $this->addBoard($output, $posx, $posy, $diff));
+			$diff = array($tx,$ty);
+			$temp = array_merge($temp, $this->addBoard($posx, $posy, $diff));
 		} while (($this->board->get($posx + $tx, $posy + $ty) == -1)
 			&& ($posx + $tx > 0)
 			&& ($posx + $tx <= 8)
@@ -103,7 +104,7 @@ class Rook extends Piece
 
 		foreach ($moves as $move)
 		{
-			$this->searchDir($output, $this->x, $this->y, $move);
+			$this->searchDir($this->x, $this->y, $move);
 		}
 
 		return $output;
@@ -257,10 +258,9 @@ class Knight extends Piece
 		$moves[] = (array(-1,-2));
 		$moves[] = (array(-2,1));
 		$moves[] = (array(-2,-1));
-
 		foreach ($moves as $move)
 		{
-			$output = array_merge($output, $this->addBoard(array(), $this->x, $this->y, $move));
+			$output = array_merge($output, $this->addBoard($this->x, $this->y, $move));
 		}
 
 		return $output;
@@ -300,7 +300,7 @@ class Queen extends Piece
 
 		foreach ($moves as $move)
 		{
-			$this->searchDir($output, $this->x, $this->y, $move);
+			$this->searchDir($this->x, $this->y, $move);
 		}
 
 		return $output;
@@ -336,7 +336,7 @@ class Bishop extends Piece
 
 		foreach ($moves as $move)
 		{
-			$this->searchDir($output, $this->x, $this->y, $move);
+			$this->searchDir($this->x, $this->y, $move);
 		}
 
 		return output;
@@ -384,7 +384,7 @@ class King extends Piece
 
 		foreach ($moves as $move)
 		{
-			$this->addBoard($output, $this->x, $this->y, $move);
+			$this->addBoard($this->x, $this->y, $move);
 		}
 
 		if ($this->typecode == ChessBoard::$WHITEKING) 

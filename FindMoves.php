@@ -31,18 +31,15 @@ function toAlg($input)
 	else if ($input[0] == '7') { $temp = "G"; }
 	else if ($input[0] == '8') { $temp = "H"; }
 	else { $temp = "0"; }
-	$temp = $temp + substr($input,1,1);
+	$temp = $temp . substr($input,1,1);
 	return $temp;
 }
 
 function genList($original, $recurse) {
-	$list = Array();
-	$outlist = Array();
-	$temp = "";
-
 	$board = new ChessBoard();
 	$board->loadString($original);
-
+	$outlist = array();
+	//echo var_dump(debug_backtrace()) . "\n";
 	for ($i = 1; $i < 9; $i++)
 		for ($j = 1; $j < 9; $j++)
 		{
@@ -108,20 +105,20 @@ function genList($original, $recurse) {
 			if ($piece != 0)
 			{
 				$list = $piece->generatePreList();
-				echo "entire prelist: " . json_encode($list) . "\n";
 				foreach ($list as $row)
 				{
 					$temp = $piece->typeString();
-					$temp += toAlg($row.substr(68,70)) + ",";
-					$temp += toAlg($row.substr(70,72)) + ",";
-					$temp += $row;
+					$temp .= toAlg(substr($row,68,2)) . ",";
+					$temp .= toAlg(substr($row,70,2)) . ",";
+					$temp .= $row;
 					$outlist[] = $temp;
 				}
+				$piece = 0;
 			}
 		}
 
-	return $outlist;
-}
+		return $outlist;
+	}
 
 function kingKillable($input) {
 	$rec = explode(',', $input);

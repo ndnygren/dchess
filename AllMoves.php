@@ -24,12 +24,12 @@ function moves($input) {
 
 	foreach ($list as $row)
 	{
-		if (kingKillable($row) == false) { echo  "king kill " . $row . "\n";  }
+		if (kingKillable($row) == false) { echo  $row . "\n";  }
 	}
 
 	return $list;
 }
 
-echo "final output: " . json_encode(moves("")) . "\n";
+moves("");
 
 ?>
