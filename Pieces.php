@@ -151,7 +151,7 @@ class Pawn extends Piece
 			$temp = ChessBoard($this->board);
 			$temp->set($this->x,$this->y,-1);
 			$temp->set($this->x,$y + 2*$this->direction,$this->typecode);
-			$temp->setLastMove($this->x,$this->y,x,$y + 2*$this->direction);
+			$temp->setLastMove($this->x,$this->y,$this->x,$this->y + 2*$this->direction);
 			$temp->changeTurn();
 			$temp->checkPromotion();
 			$output[] = ($temp->toString());
@@ -223,8 +223,7 @@ class Pawn extends Piece
 				}
 			}
 		}
-
-		return output;
+		return $output;
 	}
 
 	public function typeString() { return "Pawn,"; }
@@ -339,7 +338,7 @@ class Bishop extends Piece
 			$this->searchDir($this->x, $this->y, $move);
 		}
 
-		return output;
+		return $output;
 	}
 
 	function typeString() { return "Bishop,"; }

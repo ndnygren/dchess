@@ -47,7 +47,7 @@ function genList($original, $recurse) {
 			{
 				if ($board->get($i,$j) == ChessBoard::$WHITEPAWN)
 				{
-					//$piece = new Pawn($i, $j, $board, true);
+					$piece = new Pawn($i, $j, $board, true);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEKING)
 				{
@@ -76,7 +76,7 @@ function genList($original, $recurse) {
 			{
 				if ($board->get($i,$j) == ChessBoard::$BLACKPAWN)
 				{
-					//$piece = new Pawn($i, $j, $board, false);
+					$piece = new Pawn($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKKING)
 				{
@@ -85,7 +85,7 @@ function genList($original, $recurse) {
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKKNIGHT)
 				{
-					//$piece = new Knight($i, $j, $board, false);
+					$piece = new Knight($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKROOK)
 				{
