@@ -51,8 +51,8 @@ function genList($original, $recurse) {
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEKING)
 				{
-					//$piece = new King($i, $j, $board, true);
-					//$piece->setRecurse(recurse);
+					$piece = new King($i, $j, $board, true);
+					$piece->setRecurse(recurse);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEKNIGHT)
 				{
@@ -80,8 +80,8 @@ function genList($original, $recurse) {
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKKING)
 				{
-					//$piece = new King($i, $j, $board, false);
-					//$piece->setRecurse(recurse);
+					$piece = new King($i, $j, $board, false);
+					$piece->setRecurse(recurse);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKKNIGHT)
 				{
@@ -128,7 +128,9 @@ function kingKillable($input) {
 		$rec = explode(',', $row);
 		$board = $rec[3];
 		if (substr($board,10,2) == "00" || substr($board,58,2) == "00")
-		{ return true; }
+		{
+			return true; 
+		}
 	}
 	return false;
 }

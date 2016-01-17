@@ -384,22 +384,24 @@ class King extends Piece
 
 		foreach ($moves as $move)
 		{
-			$this->addBoard($this->x, $this->y, $move);
+			$output = array_merge($output, $this->addBoard($this->x, $this->y, $move));
 		}
-
+		return $output;
+		//the rest is castling conditions
 		if ($this->typecode == ChessBoard::$WHITEKING) 
 		{
+			//white king castling to the left
 			if ($this->x == 5 && $this->y == 1
-				&& $this->board.get(4,1) == -1 
-				&& $this->board.get(3,1) == -1 
-				&& $this->board.get(2,1) == -1 
-				&& $this->board.get(1,1) == ChessBoard::$WHITEROOK
-				&& !($this->board.castleData() & 64) 
-				&& !($this->board.castleData() & 32))
+				&& $this->board->get(4,1) == -1 
+				&& $this->board->get(3,1) == -1 
+				&& $this->board->get(2,1) == -1 
+				&& $this->board->get(1,1) == ChessBoard::$WHITEROOK
+				&& !($this->board->castleData() & 64) 
+				&& !($this->board->castleData() & 32))
 			{
 				$aboard->copy($this->board);
 				$aboard->changeTurn();
-				if ($this->recurse && !kingKillable("k,1,1," + aboard.toString()) && !leftCastleThroughCheck($this->board))
+				if ($this->recurse && !kingKillable("k,1,1," + $aboard->toString()) && !leftCastleThroughCheck($this->board))
 				{
 					$temp->copy($this->board);
 					$temp->set(1, 1, -1);
@@ -409,19 +411,20 @@ class King extends Piece
 					$temp->setLastMove(5, 1, 3, 1);
 					$temp->changeTurn();
 					$temp->checkKingRookHome();
-					$output[] = (temp.toString());
+					$output[] = ($temp->toString());
 				}
 			}
+			// white king castling to the right
 			if ($this->x == 5 && $this->y == 1
-				&& $this->board.get(6,1) == -1 
-				&& $this->board.get(7,1) == -1 
-				&& $this->board.get(8,1) == ChessBoard::$WHITEROOK
-				&& !($this->board.castleData() & 64) 
-				&& !($this->board.castleData() & 16))
+				&& $this->board->get(6,1) == -1 
+				&& $this->board->get(7,1) == -1 
+				&& $this->board->get(8,1) == ChessBoard::$WHITEROOK
+				&& !($this->board->castleData() & 64) 
+				&& !($this->board->castleData() & 16))
 			{
 				$aboard->copy($this->board);
 				$aboard->changeTurn();
-				if ($this->recurse && !kingKillable("k,1,1,"+aboard.toString()) && !rightCastleThroughCheck($this->board))
+				if ($this->recurse && !kingKillable("k,1,1," + $aboard->toString()) && !rightCastleThroughCheck($this->board))
 				{
 					$temp->copy($this->board);
 					$temp->set(8, 1, -1);
@@ -431,19 +434,20 @@ class King extends Piece
 					$temp->setLastMove(5, 1, 7, 1);
 					$temp->changeTurn();
 					$temp->checkKingRookHome();
-					$output[] = (temp.toString());
+					$output[] = ($temp->toString());
 				}
 			}
 		}	
 		if ($this->typecode == ChessBoard::$BLACKKING) 
 		{
+			// black king castling to the left
 			if ($this->x == 5 && $this->y == 8
-				&& $this->board.get(4,8) == -1 
-				&& $this->board.get(3,8) == -1 
-				&& $this->board.get(2,8) == -1 
-				&& $this->board.get(1,8) == ChessBoard::$BLACKROOK
-				&& !($this->board.castleData() & 4) 
-				&& !($this->board.castleData() & 2))
+				&& $this->board->get(4,8) == -1 
+				&& $this->board->get(3,8) == -1 
+				&& $this->board->get(2,8) == -1 
+				&& $this->board->get(1,8) == ChessBoard::$BLACKROOK
+				&& !($this->board->castleData() & 4) 
+				&& !($this->board->castleData() & 2))
 			{
 				$aboard->copy($this->board);
 				$aboard->changeTurn();
@@ -457,19 +461,20 @@ class King extends Piece
 					$temp->setLastMove(5, 8, 3, 8);
 					$temp->changeTurn();
 					$temp->checkKingRookHome();
-					$output[] = (temp.toString());
+					$output[] = ($temp->toString());
 				}
 			}
+			// black king castling to the right
 			if ($this->x == 5 && $this->y == 8
-				&& $this->board.get(6,8) == -1 
-				&& $this->board.get(7,8) == -1 
-				&& $this->board.get(8,8) == ChessBoard::$BLACKROOK
-				&& !($this->board.castleData() & 4) 
-				&& !($this->board.castleData() & 1))
+				&& $this->board->get(6,8) == -1 
+				&& $this->board->get(7,8) == -1 
+				&& $this->board->get(8,8) == ChessBoard::$BLACKROOK
+				&& !($this->board->castleData() & 4) 
+				&& !($this->board->castleData() & 1))
 			{
 				$aboard->copy($this->board);
 				$aboard->changeTurn();
-				if ($this->recurse && !kingKillable("k,1,1," + $aboard.toString()) && !rightCastleThroughCheck($this->board))
+				if ($this->recurse && !kingKillable("k,1,1," + $aboard->toString()) && !rightCastleThroughCheck($this->board))
 				{
 					$temp->copy($this->board);
 					$temp->set(8, 8, -1);
@@ -479,7 +484,7 @@ class King extends Piece
 					$temp->setLastMove(5, 8, 7, 8);
 					$temp->changeTurn();
 					$temp->checkKingRookHome();
-					$output[] = (temp.toString());
+					$output[] = ($temp->toString());
 				}
 			}
 		}	
@@ -494,10 +499,10 @@ class King extends Piece
 		parent::__construct($xin, $yin, $board);
 		$this->setColor($white);
 		if ($white) {
-			$this->typecode = ChessBoard::$WHITEBISHOP;
+			$this->typecode = ChessBoard::$WHITEKING;
 		}
 		else {
-			$this->typecode = ChessBoard::$BLACKBISHOP;
+			$this->typecode = ChessBoard::$BLACKKING;
 		}
 	}
 }
