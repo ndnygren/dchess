@@ -43,8 +43,6 @@ function genList($original, $recurse) {
 	$board = new ChessBoard();
 	$board->loadString($original);
 
-	echo json_encode($board);
-
 	for ($i = 1; $i < 9; $i++)
 		for ($j = 1; $j < 9; $j++)
 		{
@@ -110,7 +108,7 @@ function genList($original, $recurse) {
 			if ($piece != 0)
 			{
 				$list = $piece->generatePreList();
-				echo "here it is: " . json_encode($list) . "\n";
+				echo "entire prelist: " . json_encode($list) . "\n";
 				foreach ($list as $row)
 				{
 					$temp = $piece->typeString();

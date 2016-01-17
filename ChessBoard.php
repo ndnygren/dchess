@@ -120,8 +120,6 @@ class ChessBoard {
 			$intarray[] = (self::digit($input[$i]) << 4)
 				     + self::digit($input[$i+1]);
 		}
-		echo "input: " . $input . "\n";
-		echo "intarray: " . json_encode($intarray) . "\n";
 		if ($intarray[0] == 0xAA) { $this->whiteturn = true; }
 		else { $this->whiteturn = false; }
 
@@ -163,7 +161,6 @@ class ChessBoard {
 		$this->castle = $intarray[33];
 		$this->enpassant[0] = $intarray[34];
 		$this->enpassant[1] = $intarray[35];
-		echo json_encode($this->data) . "\n";
 	}
 
 	public static function qiptob($x, $y)
@@ -215,22 +212,22 @@ class ChessBoard {
 		else if (($input & 0xf0) == 0x10) { $temp = "1"; }
 		else { $temp = "0"; }
 
-		if (($input & 0x0f) == 0x0f) { $temp = $temp + "F"; }
-		else if (($input & 0x0f) == 0x0e) { $temp = $temp + "E"; }
-		else if (($input & 0x0f) == 0x0d) { $temp = $temp + "D"; }
-		else if (($input & 0x0f) == 0x0c) { $temp = $temp + "C"; }
-		else if (($input & 0x0f) == 0x0b) { $temp = $temp + "B"; }
-		else if (($input & 0x0f) == 0x0a) { $temp = $temp + "A"; }
-		else if (($input & 0x0f) == 0x09) { $temp = $temp + "9"; }
-		else if (($input & 0x0f) == 0x08) { $temp = $temp + "8"; }
-		else if (($input & 0x0f) == 0x07) { $temp = $temp + "7"; }
-		else if (($input & 0x0f) == 0x06) { $temp = $temp + "6"; }
-		else if (($input & 0x0f) == 0x05) { $temp = $temp + "5"; }
-		else if (($input & 0x0f) == 0x04) { $temp = $temp + "4"; }
-		else if (($input & 0x0f) == 0x03) { $temp = $temp + "3"; }
-		else if (($input & 0x0f) == 0x02) { $temp = $temp + "2"; }
-		else if (($input & 0x0f) == 0x01) { $temp = $temp + "1"; }
-		else { $temp = $temp + "0"; }
+		if (($input & 0x0f) == 0x0f) { $temp .= "F"; }
+		else if (($input & 0x0f) == 0x0e) { $temp .= "E"; }
+		else if (($input & 0x0f) == 0x0d) { $temp .= "D"; }
+		else if (($input & 0x0f) == 0x0c) { $temp .= "C"; }
+		else if (($input & 0x0f) == 0x0b) { $temp .= "B"; }
+		else if (($input & 0x0f) == 0x0a) { $temp .= "A"; }
+		else if (($input & 0x0f) == 0x09) { $temp .= "9"; }
+		else if (($input & 0x0f) == 0x08) { $temp .= "8"; }
+		else if (($input & 0x0f) == 0x07) { $temp .= "7"; }
+		else if (($input & 0x0f) == 0x06) { $temp .= "6"; }
+		else if (($input & 0x0f) == 0x05) { $temp .= "5"; }
+		else if (($input & 0x0f) == 0x04) { $temp .= "4"; }
+		else if (($input & 0x0f) == 0x03) { $temp .= "3"; }
+		else if (($input & 0x0f) == 0x02) { $temp .= "2"; }
+		else if (($input & 0x0f) == 0x01) { $temp .= "1"; }
+		else { $temp .= "0"; }
 
 		return $temp;
 	}
@@ -247,10 +244,10 @@ class ChessBoard {
 		$bb = 0;
 		$wq = 0;
 		$bq = 0;
-		$parray = array(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0);
+		$parray = array();
 
 		for ($i = 0; $i < 32; $i++)
-			{ $parray[$i] = 0x00; }
+			{ $parray[] = 0x00; }
 			
 		if ($this->whiteturn) { $temp = "AA"; }
 		else { $temp = "BB"; }
@@ -334,11 +331,14 @@ class ChessBoard {
 		}
 
 		for ($i = 0; $i < 32; $i++)
-			{ $temp = $temp + self::btos($parray[$i]); }
+			{ $temp .= self::btos($parray[$i]); }
 
-		$temp = $temp + self::btos($this->castle);
-		$temp = $temp + self::btos($this->enpassant[0]);
-		$temp = $temp + self::btos($this->enpassant[1]);
+		$temp .= self::btos($this->castle);
+		$temp .= self::btos($this->enpassant[0]);
+		$temp .= self::btos($this->enpassant[1]);
+
+		echo "parray: ".json_encode($parray)."\n";
+		echo "temp: " . $temp . "\n";
 
 		return $temp;
 
