@@ -67,7 +67,6 @@ class Piece
 			&& ($posx + $tx <= 8)
 			&& ($posy + $ty > 0)
 			&& ($posy + $ty <= 8));
-		//echo "temp: " . json_encode($temp). "\n";
 		return $temp;
 	}
 
@@ -572,15 +571,13 @@ class ChessBoard {
 
 	public function locset($loc, $type)
 	{
-		$realloc = 0;
+		$realloc = (($loc - 16*9) % 8) + (floor(($loc - 16*9) / 8) * 16);
 		if ($type == self::$WHITEPAWN && ($loc >> 4) > 8)
 		{
-			$realloc = (($loc - 16*9) % 8) + ((($loc - 16*9) / 8) * 16);
 			$this->set(($realloc >> 4) + 1, ($realloc & 0x0F) + 1, self::$WHITEQUEEN);
 		}
 		else if ($type == self::$BLACKPAWN && ($loc >> 4) > 8)
 		{
-			$realloc = (($loc - 16*9) % 8) + ((($loc - 16*9) / 8) * 16);
 			$this->set(($realloc >> 4) + 1, ($realloc & 0x0F) + 1, self::$BLACKQUEEN);
 		}
 		else if (($loc >> 4) > 0)
@@ -1023,15 +1020,62 @@ class ChessBoard {
 		if (strlen($input) > 0) { $list = self::genList($input, false); }
 		else { $list = self::genList("AA1121314151617181122232425262728217273747576777871828384858687888000000",false); }
 
+		$output = array();
 		foreach ($list as $row)
 		{
-			if (self::kingKillable($row) == false) { echo  $row . "\n";  }
+			if (self::kingKillable($row) == false) { $output[] = $row;  }
 		}
 
-		return $list;
+		return $output;
+	}
+
+	public static function check($input)
+	{
+		echo "input: " . $input . "\n";
+		if (strlen($input) > 0)
+			{ $list = self::genList($input, false); }
+		else
+			{ $list = self::genList("AA1121314151617181122232425262728217273747576777871828384858687888000000", false); }
+
+		$cnt = 0;
+		for ($i = 0; $i < count($list); $i++)
+		{
+			if (self::kingKillable($list[$i]) == false) 
+			{
+				$cnt++;
+
+				if ($cnt > 1)
+				{
+					return "Moves Available\n";
+				}
+				else
+				{
+					$rec = explode(',',$list[i]);
+					$oneboard = $rec[3];
+				}
+			}
+		}
+
+		if ($cnt == 1)
+		{
+			return "One:" . $oneboard . "\n";
+		}
+
+		$board = new ChessBoard();
+		$board->loadString($input);
+		$board->changeTurn();
+
+		$revboard = "Test,00,00," . $board->toString();
+
+		if (self::kingKillable($revboard))
+		{
+			return "Checkmate\n";
+		}
+		else
+		{
+			return "Stalemate\n";
+		}
 	}
 }
-
-ChessBoard::moves("BB8100531151850000234345546273830025354655677787008844574758000000224111");
 
 ?>
