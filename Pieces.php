@@ -3,10 +3,10 @@
 /*  dchess - backend processing for chess application
  *  Copyright (C) 2016 Nick Nygren
  *
- *  This program is free software: $you can redistribute it and/or modify
+ *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
- *  (at $your option) any later version.
+ *  (at your option) any later version.
  *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -136,67 +136,67 @@ class Pawn extends Piece
 		$lastmove;
 		$lastmoved;
 
-		if (($y + $this->direction <= 8) && ($y + $this->direction >= 1) && ($this->board->get($this->x, $y + $this->direction) == -1))
+		if (($this->y + $this->direction <= 8) && ($this->y + $this->direction >= 1) && ($this->board->get($this->x, $this->y + $this->direction) == -1))
 		{
 			$temp->copy($this->board);
 			$temp->set($this->x,$this->y,-1);
-			$temp->set($this->x,$y + $this->direction,$this->typecode);
-			$temp->setLastMove($this->x,$this->y,$this->x,$y + $this->direction);
+			$temp->set($this->x,$this->y + $this->direction,$this->typecode);
+			$temp->setLastMove($this->x,$this->y,$this->x,$this->y + $this->direction);
 			$temp->changeTurn();
 			$temp->checkPromotion();
 			$output[] = $temp->toString();
 		}
-		if (($y == $this->homerank) && ($this->board->get($this->x, $y + $this->direction) == -1) && ($this->board->get($this->x, $y + (2 * $this->direction)) == -1))
+		if (($this->y == $this->homerank) && ($this->board->get($this->x, $this->y + $this->direction) == -1) && ($this->board->get($this->x, $this->y + (2 * $this->direction)) == -1))
 		{
 			$temp = ChessBoard($this->board);
 			$temp->set($this->x,$this->y,-1);
-			$temp->set($this->x,$y + 2*$this->direction,$this->typecode);
+			$temp->set($this->x,$this->y + 2*$this->direction,$this->typecode);
 			$temp->setLastMove($this->x,$this->y,$this->x,$this->y + 2*$this->direction);
 			$temp->changeTurn();
 			$temp->checkPromotion();
 			$output[] = ($temp->toString());
 		}
-		if (($y + $this->direction <= 8) && ($y + $this->direction >= 1) && ($x + 1 < 9))
+		if (($this->y + $this->direction <= 8) && ($this->y + $this->direction >= 1) && ($x + 1 < 9))
 		{
-			if (($this->direction == 1) && ($this->board->get($x + 1, $y + $this->direction) > 6))
+			if (($this->direction == 1) && ($this->board->get($x + 1, $this->y + $this->direction) > 6))
 			{
 				$temp = ChessBoard($this->board);
 				$temp->set($this->x,$this->y,-1);
-				$temp->set($x + 1, $y + $this->direction, $this->typecode);
-				$temp->setLastMove($this->x,$this->y,x + 1, $y + $this->direction);
+				$temp->set($x + 1, $this->y + $this->direction, $this->typecode);
+				$temp->setLastMove($this->x,$this->y,$this->x + 1, $this->y + $this->direction);
 				$temp->changeTurn();
 				$temp->checkPromotion();
 				$output[] = ($temp->toString());
 			}
-			else if (($this->direction == -1) && ($this->board->get($x + 1, $y + $this->direction) < 6) && ($this->board->get($x + 1, $y + $this->direction) >= 0))
+			else if (($this->direction == -1) && ($this->board->get($x + 1, $this->y + $this->direction) < 6) && ($this->board->get($x + 1, $this->y + $this->direction) >= 0))
 			{
 				$temp = ChessBoard($this->board);
 				$temp->set($this->x,$this->y,-1);
-				$temp->set($x + 1, $y + $this->direction, $this->typecode);
-				$temp->setLastMove($this->x,$this->y,x + 1, $y + $this->direction);
+				$temp->set($x + 1, $this->y + $this->direction, $this->typecode);
+				$temp->setLastMove($this->x,$this->y,x + 1, $this->y + $this->direction);
 				$temp->changeTurn();
 				$temp->checkPromotion();
 				$output[] = ($temp->toString());
 			}
 		}
-		if (($y + $this->direction <= 8) && ($y + $this->direction >= 1) && ($x - 1 > 0))
+		if (($this->y + $this->direction <= 8) && ($this->y + $this->direction >= 1) && ($x - 1 > 0))
 		{
-			if (($this->direction == 1) && ($this->board->get($x - 1, $y + $this->direction) > 6))
+			if (($this->direction == 1) && ($this->board->get($x - 1, $this->y + $this->direction) > 6))
 			{
 				$temp = ChessBoard($this->board);
 				$temp->set($this->x,$this->y,-1);
-				$temp->set($x - 1, $y + $this->direction, $this->typecode);
-				$temp->setLastMove($this->x,$this->y,x - 1, $y + $this->direction);
+				$temp->set($x - 1, $this->y + $this->direction, $this->typecode);
+				$temp->setLastMove($this->x,$this->y,x - 1, $this->y + $this->direction);
 				$temp->changeTurn();
 				$temp->checkPromotion();
 				$output[] = ($temp->toString());
 			}
-			else if (($this->direction == -1) && ($this->board->get($x - 1, $y + $this->direction) < 6) && ($this->board->get($x - 1, $y + $this->direction) >= 0))
+			else if (($this->direction == -1) && ($this->board->get($x - 1, $this->y + $this->direction) < 6) && ($this->board->get($x - 1, $this->y + $this->direction) >= 0))
 			{
 				$temp = ChessBoard($this->board);
 				$temp->set($this->x,$this->y,-1);
-				$temp->set($x - 1, $y + $this->direction, $this->typecode);
-				$temp->setLastMove($this->x,$this->y,x - 1, $y + $this->direction);
+				$temp->set($x - 1, $this->y + $this->direction, $this->typecode);
+				$temp->setLastMove($this->x,$this->y,x - 1, $this->y + $this->direction);
 				$temp->changeTurn();
 				$temp->checkPromotion();
 				$output[] = ($temp->toString());
@@ -216,8 +216,8 @@ class Pawn extends Piece
 					$temp->copy($this->board);
 					$temp->set($this->x,$this->y,-1);
 					$temp->set($lastmove[1] >> 4, $lastmove[1] & 0x0F,-1);
-					$temp->set($lastmove[1] >> 4, $y + $this->direction, $this->typecode);
-					$temp->setLastMove($this->x,$this->y,$lastmove[1] >> 4, $y + $this->direction);
+					$temp->set($lastmove[1] >> 4, $this->y + $this->direction, $this->typecode);
+					$temp->setLastMove($this->x,$this->y,$lastmove[1] >> 4, $this->y + $this->direction);
 					$temp->changeTurn();
 					$output[] = ($temp->toString());
 				}
@@ -388,7 +388,7 @@ class King extends Piece
 
 		if ($this->typecode == ChessBoard::$WHITEKING) 
 		{
-			if ($x == 5 && $y == 1
+			if ($x == 5 && $this->y == 1
 				&& $this->board.get(4,1) == -1 
 				&& $this->board.get(3,1) == -1 
 				&& $this->board.get(2,1) == -1 
@@ -411,7 +411,7 @@ class King extends Piece
 					$output[] = (temp.toString());
 				}
 			}
-			if ($x == 5 && $y == 1
+			if ($x == 5 && $this->y == 1
 				&& $this->board.get(6,1) == -1 
 				&& $this->board.get(7,1) == -1 
 				&& $this->board.get(8,1) == ChessBoard::$WHITEROOK
@@ -436,7 +436,7 @@ class King extends Piece
 		}	
 		if ($this->typecode == ChessBoard::$BLACKKING) 
 		{
-			if ($x == 5 && $y == 8
+			if ($x == 5 && $this->y == 8
 				&& $this->board.get(4,8) == -1 
 				&& $this->board.get(3,8) == -1 
 				&& $this->board.get(2,8) == -1 
@@ -459,7 +459,7 @@ class King extends Piece
 					$output[] = (temp.toString());
 				}
 			}
-			if ($x == 5 && $y == 8
+			if ($x == 5 && $this->y == 8
 				&& $this->board.get(6,8) == -1 
 				&& $this->board.get(7,8) == -1 
 				&& $this->board.get(8,8) == ChessBoard::$BLACKROOK
