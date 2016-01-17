@@ -30,6 +30,6 @@ function moves($input) {
 	return $list;
 }
 
-moves("");
+echo json_encode(moves(""));
 
 ?>

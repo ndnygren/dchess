@@ -1,5 +1,7 @@
 <?php
 
+include 'ChessBoard.php';
+
 /*  dchess - backend processing for chess application
  *  Copyright (C) 2016 Nick Nygren
  *
@@ -37,35 +39,38 @@ function genList($original, $recurse) {
 	$outlist = Array();
 	$temp = "";
 
-	$board = ChessBoard::loadString($original);
+	$board = new ChessBoard();
+	$board->loadString($original);
+
+	echo json_encode($board);
 
 	for ($i = 1; $i < 9; $i++)
 		for ($j = 1; $j < 9; $j++)
 		{
-			if ($board.whiteTurn())
+			if ($board->whiteTurn())
 			{
-				if ($board.get($i,$j) == ChessBoard::WHITEPAWN)
+				if ($board->get($i,$j) == ChessBoard::$WHITEPAWN)
 				{
 					$piece = new WhitePawn($i, $j, board);
 				}
-				else if ($board.get($i,$j) == ChessBoard::WHITEKING)
+				else if ($board->get($i,$j) == ChessBoard::$WHITEKING)
 				{
 					$piece = new WhiteKing($i, $j, board);
 					$piece->setRecurse(recurse);
 				}
-				else if ($board.get($i,$j) == ChessBoard::WHITEKNIGHT)
+				else if ($board->get($i,$j) == ChessBoard::$WHITEKNIGHT)
 				{
 					$piece = new WhiteKnight($i, $j, board);
 				}
-				else if ($board.get($i,$j) == ChessBoard::WHITEROOK)
+				else if ($board->get($i,$j) == ChessBoard::$WHITEROOK)
 				{
 					$piece = new WhiteRook($i, $j, board);
 				}
-				else if ($board.get($i,$j) == ChessBoard::WHITEBISHOP)
+				else if ($board->get($i,$j) == ChessBoard::$WHITEBISHOP)
 				{
 					$piece = new WhiteBishop($i, $j, board);
 				}
-				else if ($board.get($i,$j) == ChessBoard::WHITEQUEEN)
+				else if ($board->get($i,$j) == ChessBoard::$WHITEQUEEN)
 				{
 					$piece = new WhiteQueen($i, $j, board);
 				}
@@ -73,28 +78,28 @@ function genList($original, $recurse) {
 			}
 			else
 			{
-				if ($board.get($i,$j) == ChessBoard::BLACKPAWN)
+				if ($board->get($i,$j) == ChessBoard::$BLACKPAWN)
 				{
 					$piece = new BlackPawn($i, $j, board);
 				}
-				else if ($board.get($i,$j) == ChessBoard::BLACKKING)
+				else if ($board->get($i,$j) == ChessBoard::$BLACKKING)
 				{
 					$piece = new BlackKing($i, $j, board);
 					$piece->setRecurse(recurse);
 				}
-				else if ($board.get($i,$j) == ChessBoard::BLACKKNIGHT)
+				else if ($board->get($i,$j) == ChessBoard::$BLACKKNIGHT)
 				{
 					$piece = new BlackKnight($i, $j, board);
 				}
-				else if ($board.get($i,$j) == ChessBoard::BLACKROOK)
+				else if ($board->get($i,$j) == ChessBoard::$BLACKROOK)
 				{
 					$piece = new BlackRook($i, $j, board);
 				}
-				else if ($board.get($i,$j) == ChessBoard::BLACKBISHOP)
+				else if ($board->get($i,$j) == ChessBoard::$BLACKBISHOP)
 				{
 					$piece = new BlackBishop($i, $j, board);
 				}
-				else if ($board.get($i,$j) == ChessBoard::BLACKQUEEN)
+				else if ($board->get($i,$j) == ChessBoard::$BLACKQUEEN)
 				{
 					$piece = new BlackQueen($i, $j, board);
 				}
@@ -138,12 +143,12 @@ function leftCastleThroughCheck($input)
 	if ($input.whiteTurn())
 	{
 		$alter.set(5, 1, -1);
-		$alter.set(4, 1, ChessBoard::WHITEKING);
+		$alter.set(4, 1, ChessBoard::$WHITEKING);
 	}
 	else
 	{
 		$alter.set(5, 8, -1);
-		$alter.set(4, 8, ChessBoard::BLACKKING);
+		$alter.set(4, 8, ChessBoard::$BLACKKING);
 	}
 	return kingKillable("k,1,1," + $alter.toString());
 
@@ -156,12 +161,12 @@ function rightCastleThroughCheck($input)
 	if ($input.whiteTurn())
 	{
 		$alter.set(5, 1, -1);
-		$alter.set(6, 1, ChessBoard::WHITEKING);
+		$alter.set(6, 1, ChessBoard::$WHITEKING);
 	}
 	else
 	{
 		$alter.set(5, 8, -1);
-		$alter.set(6, 8, ChessBoard::BLACKKING);
+		$alter.set(6, 8, ChessBoard::$BLACKKING);
 	}
 	return kingKillable("K,1,1," + $alter.toString());
 
