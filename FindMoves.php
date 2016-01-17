@@ -137,36 +137,42 @@ function kingKillable($input) {
 
 function leftCastleThroughCheck($input)
 {
-	$alter = $input;
-	$alter.changeTurn();
-	if ($input.whiteTurn())
+	$alter = new ChessBoard();
+	$alter->copy($input);
+	$alter->changeTurn();
+	if ($input->whiteTurn())
 	{
-		$alter.set(5, 1, -1);
-		$alter.set(4, 1, ChessBoard::$WHITEKING);
+		$alter->set(5, 1, -1);
+		$alter->set(4, 1, ChessBoard::$WHITEKING);
+
 	}
 	else
 	{
-		$alter.set(5, 8, -1);
-		$alter.set(4, 8, ChessBoard::$BLACKKING);
+		$alter->set(5, 8, -1);
+		$alter->set(4, 8, ChessBoard::$BLACKKING);
 	}
-	return kingKillable("k,1,1," + $alter.toString());
+	return kingKillable("k,1,1," + $alter->toString());
 
 }
 
 function rightCastleThroughCheck($input)
 {
-	$alter = $input;
-	$alter.changeTurn();
-	if ($input.whiteTurn())
+	$alter = new ChessBoard();
+	$alter->copy($input);
+	$alter->changeTurn();
+	if ($input->whiteTurn())
 	{
-		$alter.set(5, 1, -1);
-		$alter.set(6, 1, ChessBoard::$WHITEKING);
+		$alter->set(5, 1, -1);
+		$alter->set(6, 1, ChessBoard::$WHITEKING);
 	}
 	else
 	{
-		$alter.set(5, 8, -1);
-		$alter.set(6, 8, ChessBoard::$BLACKKING);
+		$alter->set(5, 8, -1);
+		$alter->set(6, 8, ChessBoard::$BLACKKING);
 	}
-	return kingKillable("K,1,1," + $alter.toString());
+	return kingKillable("K,1,1," + $alter->toString());
+
 
 }
+
+?>

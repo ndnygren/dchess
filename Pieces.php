@@ -386,7 +386,7 @@ class King extends Piece
 		{
 			$output = array_merge($output, $this->addBoard($this->x, $this->y, $move));
 		}
-		return $output;
+
 		//the rest is castling conditions
 		if ($this->typecode == ChessBoard::$WHITEKING) 
 		{
@@ -508,4 +508,3 @@ class King extends Piece
 }
 
 ?>
-
