@@ -205,8 +205,8 @@ class Pawn extends Piece
 		{
 			if ($lastmove[0] - $lastmove[1] == 2*$this->direction)
 			{
-				if (($this->direction == -1 && $lastmoved == ChessBoard::WHITEPAWN)
-					|| ($this->direction == 1 && $lastmoved == ChessBoard::BLACKPAWN))
+				if (($this->direction == -1 && $lastmoved == ChessBoard::$WHITEPAWN)
+					|| ($this->direction == 1 && $lastmoved == ChessBoard::$BLACKPAWN))
 				{
 					$temp->copy($this->board);
 					$temp->set($x,$y,-1);
@@ -235,7 +235,7 @@ class Pawn extends Piece
 			$this->typecode = ChessBoard::$BLACKPAWN;
 		}
 	}
-};
+}
 
 
 class Knight extends Piece
@@ -355,6 +355,148 @@ class Bishop extends Piece
 }
 
 
+class King extends Piece
+{
+	public $recurse = false;
+
+	public function setRecurse($input) { $this->recurse = $input; }
+
+	public function generatePreList()
+	{
+		$temp = new ChessBoard();
+		$aboard = new ChessBoard();
+		
+		$moves = array();
+		$output = array();
+
+		$moves[] = (array(1,-1));
+		$moves[] = (array(1,0));
+		$moves[] = (array(1,1));
+		$moves[] = (array(-1,1));
+		$moves[] = (array(-1,-1));
+		$moves[] = (array(-1,0));
+		$moves[] = (array(0,1));
+		$moves[] = (array(0,-1));
+
+		foreach ($moves as $move)
+		{
+			$this->addBoard($output, $this->x, $this->y, $move);
+		}
+
+		if ($this->typecode == ChessBoard::$WHITEKING) 
+		{
+			if ($x == 5 && $y == 1
+				&& $this->board.get(4,1) == -1 
+				&& $this->board.get(3,1) == -1 
+				&& $this->board.get(2,1) == -1 
+				&& $this->board.get(1,1) == ChessBoard::$WHITEROOK
+				&& !($this->board.castleData() & 64) 
+				&& !($this->board.castleData() & 32))
+			{
+				$aboard->copy($this->board);
+				$aboard->changeTurn();
+				if ($this->recurse && !kingKillable("k,1,1," + aboard.toString()) && !leftCastleThroughCheck($this->board))
+				{
+					$temp->copy($this->board);
+					$temp->set(1, 1, -1);
+					$temp->set(3, 1, ChessBoard::$WHITEKING);
+					$temp->set(4, 1, ChessBoard::$WHITEROOK);
+					$temp->set(5, 1, -1);
+					$temp->setLastMove(5, 1, 3, 1);
+					$temp->changeTurn();
+					$temp->checkKingRookHome();
+					$output[] = (temp.toString());
+				}
+			}
+			if ($x == 5 && $y == 1
+				&& $this->board.get(6,1) == -1 
+				&& $this->board.get(7,1) == -1 
+				&& $this->board.get(8,1) == ChessBoard::$WHITEROOK
+				&& !($this->board.castleData() & 64) 
+				&& !($this->board.castleData() & 16))
+			{
+				$aboard->copy($this->board);
+				$aboard->changeTurn();
+				if ($this->recurse && !kingKillable("k,1,1,"+aboard.toString()) && !rightCastleThroughCheck($this->board))
+				{
+					$temp->copy($this->board);
+					$temp->set(8, 1, -1);
+					$temp->set(7, 1, ChessBoard::$WHITEKING);
+					$temp->set(6, 1, ChessBoard::$WHITEROOK);
+					$temp->set(5, 1, -1);
+					$temp->setLastMove(5, 1, 7, 1);
+					$temp->changeTurn();
+					$temp->checkKingRookHome();
+					$output[] = (temp.toString());
+				}
+			}
+		}	
+		if ($this->typecode == ChessBoard::$BLACKKING) 
+		{
+			if ($x == 5 && $y == 8
+				&& $this->board.get(4,8) == -1 
+				&& $this->board.get(3,8) == -1 
+				&& $this->board.get(2,8) == -1 
+				&& $this->board.get(1,8) == ChessBoard::$BLACKROOK
+				&& !($this->board.castleData() & 4) 
+				&& !($this->board.castleData() & 2))
+			{
+				$aboard->copy($this->board);
+				$aboard->changeTurn();
+				if ($this->recurse && !kingKillable("k,1,1," + $aboard->toString()) && !leftCastleThroughCheck($this->board))
+				{
+					$temp->copy($this->board);
+					$temp->set(1, 8, -1);
+					$temp->set(3, 8, ChessBoard::$BLACKKING);
+					$temp->set(4, 8, ChessBoard::$BLACKROOK);
+					$temp->set(5, 8, -1);
+					$temp->setLastMove(5, 8, 3, 8);
+					$temp->changeTurn();
+					$temp->checkKingRookHome();
+					$output[] = (temp.toString());
+				}
+			}
+			if ($x == 5 && $y == 8
+				&& $this->board.get(6,8) == -1 
+				&& $this->board.get(7,8) == -1 
+				&& $this->board.get(8,8) == ChessBoard::$BLACKROOK
+				&& !($this->board.castleData() & 4) 
+				&& !($this->board.castleData() & 1))
+			{
+				$aboard->copy($this->board);
+				$aboard->changeTurn();
+				if ($this->recurse && !kingKillable("k,1,1," + $aboard.toString()) && !rightCastleThroughCheck($this->board))
+				{
+					$temp->copy($this->board);
+					$temp->set(8, 8, -1);
+					$temp->set(7, 8, ChessBoard::$BLACKKING);
+					$temp->set(6, 8, ChessBoard::$BLACKROOK);
+					$temp->set(5, 8, -1);
+					$temp->setLastMove(5, 8, 7, 8);
+					$temp->changeTurn();
+					$temp->checkKingRookHome();
+					$output[] = (temp.toString());
+				}
+			}
+		}	
+
+		return $output;
+	}
+
+	public function typeString() { return "King,"; }
+
+	function __construct($xin, $yin, $board, $white)
+	{
+		parent::__construct($xin, $yin, $board);
+		$this->setColor($white);
+		if ($white) {
+			$this->typecode = ChessBoard::$WHITEBISHOP;
+		}
+		else {
+			$this->typecode = ChessBoard::$BLACKBISHOP;
+		}
+	}
+}
 
 ?>
 

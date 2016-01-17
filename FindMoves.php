@@ -52,12 +52,12 @@ function genList($original, $recurse) {
 			{
 				if ($board->get($i,$j) == ChessBoard::$WHITEPAWN)
 				{
-					$piece = new Pawn($i, $j, $board, true);
+					//$piece = new Pawn($i, $j, $board, true);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEKING)
 				{
-					$piece = new King($i, $j, $board, true);
-					$piece->setRecurse(recurse);
+					//$piece = new King($i, $j, $board, true);
+					//$piece->setRecurse(recurse);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEKNIGHT)
 				{
@@ -65,15 +65,15 @@ function genList($original, $recurse) {
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEROOK)
 				{
-					$piece = new Rook($i, $j, $board, true);
+					//$piece = new Rook($i, $j, $board, true);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEBISHOP)
 				{
-					$piece = new Bishop($i, $j, $board, true);
+					//$piece = new Bishop($i, $j, $board, true);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$WHITEQUEEN)
 				{
-					$piece = new Queen($i, $j, $board, true);
+					//$piece = new Queen($i, $j, $board, true);
 				}
 				else { $piece = 0; }
 			}
@@ -81,28 +81,28 @@ function genList($original, $recurse) {
 			{
 				if ($board->get($i,$j) == ChessBoard::$BLACKPAWN)
 				{
-					$piece = new Pawn($i, $j, $board, false);
+					//$piece = new Pawn($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKKING)
 				{
-					$piece = new King($i, $j, $board, false);
-					$piece->setRecurse(recurse);
+					//$piece = new King($i, $j, $board, false);
+					//$piece->setRecurse(recurse);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKKNIGHT)
 				{
-					$piece = new Knight($i, $j, $board, false);
+					//$piece = new Knight($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKROOK)
 				{
-					$piece = new Rook($i, $j, $board, false);
+					//$piece = new Rook($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKBISHOP)
 				{
-					$piece = new Bishop($i, $j, $board, false);
+					//$piece = new Bishop($i, $j, $board, false);
 				}
 				else if ($board->get($i,$j) == ChessBoard::$BLACKQUEEN)
 				{
-					$piece = new Queen($i, $j, $board, false);
+					//$piece = new Queen($i, $j, $board, false);
 				}
 				else { $piece = 0; }
 			}
@@ -110,6 +110,7 @@ function genList($original, $recurse) {
 			if ($piece != 0)
 			{
 				$list = $piece->generatePreList();
+				echo "here it is: " . json_encode($list) . "\n";
 				foreach ($list as $row)
 				{
 					$temp = $piece->typeString();
