@@ -1031,7 +1031,6 @@ class ChessBoard {
 
 	public static function check($input)
 	{
-		echo "input: " . $input . "\n";
 		if (strlen($input) > 0)
 			{ $list = self::genList($input, false); }
 		else
@@ -1050,7 +1049,7 @@ class ChessBoard {
 				}
 				else
 				{
-					$rec = explode(',',$list[i]);
+					$rec = explode(',',$list[$i]);
 					$oneboard = $rec[3];
 				}
 			}
