@@ -158,6 +158,7 @@ class Pawn extends Piece
 		}
 		if (($this->y + $this->direction <= 8) && ($this->y + $this->direction >= 1) && ($this->x + 1 < 9))
 		{
+			//diagonal attack case
 			if (($this->direction == 1) && ($this->board->get($this->x + 1, $this->y + $this->direction) > 6))
 			{
 				$temp->copy($this->board);
@@ -181,6 +182,7 @@ class Pawn extends Piece
 		}
 		if (($this->y + $this->direction <= 8) && ($this->y + $this->direction >= 1) && ($this->x - 1 > 0))
 		{
+			// diagonal attack case
 			if (($this->direction == 1) && ($this->board->get($this->x - 1, $this->y + $this->direction) > 6))
 			{
 				$temp->copy($this->board);
@@ -196,7 +198,7 @@ class Pawn extends Piece
 				$temp->copy($this->board);
 				$temp->set($this->x,$this->y,-1);
 				$temp->set($this->x - 1, $this->y + $this->direction, $this->typecode);
-				$temp->setLastMove($this->x,$this->y,x - 1, $this->y + $this->direction);
+				$temp->setLastMove($this->x,$this->y,$this->x - 1, $this->y + $this->direction);
 				$temp->changeTurn();
 				$temp->checkPromotion();
 				$output[] = ($temp->toString());
@@ -208,6 +210,7 @@ class Pawn extends Piece
 //		cout << "lastmove:" << $lastmove[0] << "," << $lastmove[1] << "\n";
 		if (ChessBoard::iptob($this->x+1,$this->y) == $lastmove[1] || ChessBoard::iptob($this->x-1,$this->y) == $lastmove[1])
 		{
+			//the en passant case
 			if ($lastmove[0] - $lastmove[1] == 2*$this->direction)
 			{
 				if (($this->direction == -1 && $lastmoved == ChessBoard::$WHITEPAWN)
